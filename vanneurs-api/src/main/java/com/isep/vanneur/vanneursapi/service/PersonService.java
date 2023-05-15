@@ -12,7 +12,8 @@ import com.isep.vanneur.vanneursapi.repository.PersonRepository;
 
 @Service
 public class PersonService {
-    ModelMapper mapper;
+    @Autowired
+    private ModelMapper mapper;
 
     @Autowired
     private PersonRepository personRepository;

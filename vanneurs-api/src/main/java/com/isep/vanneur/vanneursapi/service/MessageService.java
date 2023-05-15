@@ -12,7 +12,8 @@ import com.isep.vanneur.vanneursapi.repository.MessageRepository;
 
 @Service
 public class MessageService {
-    ModelMapper mapper;
+    @Autowired
+    private ModelMapper mapper;
 
     @Autowired
     private MessageRepository messageRepository;

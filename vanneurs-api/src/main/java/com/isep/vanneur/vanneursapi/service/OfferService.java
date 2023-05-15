@@ -12,7 +12,8 @@ import com.isep.vanneur.vanneursapi.repository.OfferRepository;
 
 @Service
 public class OfferService {
-    ModelMapper mapper;
+    @Autowired
+    private ModelMapper mapper;
 
     @Autowired
     private OfferRepository offerRepository;

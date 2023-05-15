@@ -12,7 +12,8 @@ import com.isep.vanneur.vanneursapi.repository.AnnouncementRepository;
 
 @Service
 public class AnnouncementService {
-    ModelMapper mapper;
+    @Autowired
+    private ModelMapper mapper;
 
     @Autowired
     private AnnouncementRepository announcementRepository;

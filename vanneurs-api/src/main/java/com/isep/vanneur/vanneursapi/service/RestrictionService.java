@@ -12,7 +12,8 @@ import com.isep.vanneur.vanneursapi.repository.RestrictionRepository;
 
 @Service
 public class RestrictionService {
-    ModelMapper mapper;
+    @Autowired
+    private ModelMapper mapper;
 
     @Autowired
     private RestrictionRepository restrictionRepository;
