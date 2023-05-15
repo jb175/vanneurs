@@ -12,7 +12,8 @@ import com.isep.vanneur.vanneursapi.repository.HouseRepository;
 
 @Service
 public class HouseService {
-    ModelMapper mapper;
+    @Autowired
+    private ModelMapper mapper;
 
     @Autowired
     private HouseRepository houseRepository;

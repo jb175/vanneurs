@@ -12,7 +12,8 @@ import com.isep.vanneur.vanneursapi.repository.RequirementListRepository;
 
 @Service
 public class RequirementListService {
-    ModelMapper mapper;
+    @Autowired
+    private ModelMapper mapper;
 
     @Autowired
     private RequirementListRepository requirementListRepository;

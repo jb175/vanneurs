@@ -12,7 +12,8 @@ import com.isep.vanneur.vanneursapi.repository.ExchangeRepository;
 
 @Service
 public class ExchangeService {
-    ModelMapper mapper;
+    @Autowired
+    private ModelMapper mapper;
 
     @Autowired
     private ExchangeRepository exchangeRepository;
