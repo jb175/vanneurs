@@ -2,7 +2,6 @@ package com.isep.vanneur.vanneursapi.model;
 
 import java.util.Collection;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +24,7 @@ public class House {
 
     private float avgRating;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn()
     private Address address;
 
