@@ -3,20 +3,20 @@ package com.isep.vanneur.vanneursapi.service;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.isep.vanneur.vanneursapi.dto.Offer.OfferCreationDTO;
 import com.isep.vanneur.vanneursapi.model.Offer;
 import com.isep.vanneur.vanneursapi.repository.OfferRepository;
 
-@Service
-public class OfferService {
-    @Autowired
-    private ModelMapper mapper;
+import lombok.RequiredArgsConstructor;
 
-    @Autowired
-    private OfferRepository offerRepository;
+@Service
+@RequiredArgsConstructor
+public class OfferService {
+    final private ModelMapper mapper;
+
+    final private OfferRepository offerRepository;
 
     public List<Offer> getOffers() {
         return offerRepository.findAll();

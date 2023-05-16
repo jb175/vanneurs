@@ -3,20 +3,20 @@ package com.isep.vanneur.vanneursapi.service;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.isep.vanneur.vanneursapi.dto.Requirement.RequirementCreationDTO;
 import com.isep.vanneur.vanneursapi.model.Requirement;
 import com.isep.vanneur.vanneursapi.repository.RequirementRepository;
 
-@Service
-public class RequirementService {
-    @Autowired
-    private ModelMapper mapper;
+import lombok.RequiredArgsConstructor;
 
-    @Autowired
-    private RequirementRepository requirementRepository;
+@Service
+@RequiredArgsConstructor
+public class RequirementService {
+    final private ModelMapper mapper;
+
+    final private RequirementRepository requirementRepository;
 
     public List<Requirement> getRequirements() {
         return requirementRepository.findAll();

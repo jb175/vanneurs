@@ -3,20 +3,20 @@ package com.isep.vanneur.vanneursapi.service;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.isep.vanneur.vanneursapi.dto.Message.MessageCreationDTO;
 import com.isep.vanneur.vanneursapi.model.Message;
 import com.isep.vanneur.vanneursapi.repository.MessageRepository;
 
-@Service
-public class MessageService {
-    @Autowired
-    private ModelMapper mapper;
+import lombok.RequiredArgsConstructor;
 
-    @Autowired
-    private MessageRepository messageRepository;
+@Service
+@RequiredArgsConstructor
+public class MessageService {
+    final private ModelMapper mapper;
+
+    final private MessageRepository messageRepository;
 
     public List<Message> getMessages() {
         return messageRepository.findAll();
