@@ -16,6 +16,10 @@ import lombok.RequiredArgsConstructor;
 public class OfferService {
     final private ModelMapper mapper;
 
+    final private PersonService personService;
+
+    final private AnnouncementService announcementService;
+
     final private OfferRepository offerRepository;
 
     public List<Offer> getOffers() {
@@ -28,6 +32,8 @@ public class OfferService {
 
     public Offer createOffer(OfferCreationDTO offerCreationDTO) {
         Offer offer = mapper.map(offerCreationDTO, Offer.class);
+        offer.setPerson(personService.getPerson(offerCreationDTO.getPerson()));
+        offer.setAnnouncement(announcementService.getAnnouncement(offerCreationDTO.getAnnouncement()));
         return offerRepository.save(offer);
     }
 

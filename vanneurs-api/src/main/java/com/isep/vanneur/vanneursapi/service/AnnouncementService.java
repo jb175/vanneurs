@@ -16,6 +16,10 @@ import lombok.RequiredArgsConstructor;
 public class AnnouncementService {
     final private ModelMapper mapper;
 
+    final private PersonService personService;
+
+    final private HouseService houseService;
+
     final private AnnouncementRepository announcementRepository;
 
     public List<Announcement> getAnnouncements() {
@@ -28,6 +32,8 @@ public class AnnouncementService {
 
     public Announcement createAnnouncement(AnnouncementCreationDTO announcementCreationDTO) {
         Announcement announcement = mapper.map(announcementCreationDTO, Announcement.class);
+        announcement.setPerson(personService.getPerson(announcementCreationDTO.getPerson()));
+        announcement.setHouse(houseService.getHouse(announcementCreationDTO.getHouse()));
         return announcementRepository.save(announcement);
     }
 

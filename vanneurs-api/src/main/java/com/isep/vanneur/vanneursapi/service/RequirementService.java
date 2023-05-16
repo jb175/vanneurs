@@ -16,6 +16,10 @@ import lombok.RequiredArgsConstructor;
 public class RequirementService {
     final private ModelMapper mapper;
 
+    final private ExchangeService exchangeService;
+
+    final private RequirementListService requirementListService;
+
     final private RequirementRepository requirementRepository;
 
     public List<Requirement> getRequirements() {
@@ -28,6 +32,9 @@ public class RequirementService {
 
     public Requirement createRequirement(RequirementCreationDTO requirementCreationDTO) {
         Requirement requirement = mapper.map(requirementCreationDTO, Requirement.class);
+        requirement.setExchange(exchangeService.getExchange(requirementCreationDTO.getExchange()));
+        requirement.setRequirementList(
+                requirementListService.getRequirementList(requirementCreationDTO.getRequirementList()));
         return requirementRepository.save(requirement);
     }
 

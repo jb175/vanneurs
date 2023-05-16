@@ -16,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 public class ExchangeService {
     final private ModelMapper mapper;
 
+    final private HouseService houseService;
+
     final private ExchangeRepository exchangeRepository;
 
     public List<Exchange> getExchanges() {
@@ -28,6 +30,8 @@ public class ExchangeService {
 
     public Exchange createExchange(ExchangeCreationDTO exchangeCreationDTO) {
         Exchange exchange = mapper.map(exchangeCreationDTO, Exchange.class);
+        exchange.setHouse1(houseService.getHouse(exchangeCreationDTO.getHouse1()));
+        exchange.setHouse2(houseService.getHouse(exchangeCreationDTO.getHouse2()));
         return exchangeRepository.save(exchange);
     }
 

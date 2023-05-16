@@ -16,6 +16,10 @@ import lombok.RequiredArgsConstructor;
 public class MessageService {
     final private ModelMapper mapper;
 
+    final private OfferService offerService;
+
+    final private PersonService personService;
+
     final private MessageRepository messageRepository;
 
     public List<Message> getMessages() {
@@ -28,6 +32,8 @@ public class MessageService {
 
     public Message createMessage(MessageCreationDTO messageCreationDTO) {
         Message message = mapper.map(messageCreationDTO, Message.class);
+        message.setOffer(offerService.getOffer(messageCreationDTO.getOffer()));
+        message.setSender(personService.getPerson(messageCreationDTO.getSender()));
         return messageRepository.save(message);
     }
 

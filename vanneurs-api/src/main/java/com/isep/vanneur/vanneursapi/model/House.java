@@ -37,9 +37,9 @@ public class House {
     @OneToMany(mappedBy = "house")
     private Collection<Restriction> restrictions;
 
-    @OneToOne(mappedBy = "house")
-    private Person person;
+    // @OneToOne(mappedBy = "house")
+    // private Person person;
 
-    @OneToOne(mappedBy = "house")
-    private Announcement announcement;
+    // @OneToOne(mappedBy = "house")
+    // private Announcement announcement;
 }

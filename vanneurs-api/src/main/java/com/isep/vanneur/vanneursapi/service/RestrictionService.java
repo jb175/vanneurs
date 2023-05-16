@@ -16,6 +16,10 @@ import lombok.RequiredArgsConstructor;
 public class RestrictionService {
     final private ModelMapper mapper;
 
+    final private HouseService houseService;
+
+    final private RestrictionListService restrictionListService;
+
     final private RestrictionRepository restrictionRepository;
 
     public List<Restriction> getRestrictions() {
@@ -28,6 +32,9 @@ public class RestrictionService {
 
     public Restriction createRestriction(RestrictionCreationDTO restrictionCreationDTO) {
         Restriction restriction = mapper.map(restrictionCreationDTO, Restriction.class);
+        restriction.setHouse(houseService.getHouse(restrictionCreationDTO.getHouse()));
+        restriction.setRestrictionList(
+                restrictionListService.getRestrictionList(restrictionCreationDTO.getRestrictionList()));
         return restrictionRepository.save(restriction);
     }
 

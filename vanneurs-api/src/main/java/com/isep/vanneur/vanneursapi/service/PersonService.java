@@ -16,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 public class PersonService {
     final private ModelMapper mapper;
 
+    final private HouseService houseService;
+
     final private PersonRepository personRepository;
 
     public List<Person> getPeople() {
@@ -28,6 +30,7 @@ public class PersonService {
 
     public Person createPerson(PersonCreationDTO personCreationDTO) {
         Person person = mapper.map(personCreationDTO, Person.class);
+        person.setHouse(houseService.getHouse(personCreationDTO.getHouse()));
         return personRepository.save(person);
     }
 
