@@ -9,6 +9,7 @@ import refreshApi from "../../services/refreshApi";
 import NavBar from "../NavBar/Navbar";
 import "./App.css";
 import Logout from "../../pages/Logout";
+import { NotFound } from "../../pages/NotFound";
 
 function App() {
   // fetch("http://localhost:8080/address")
@@ -25,14 +26,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/home"
-              element={
-                <RequireAuth loginPath="/login">
-                  <Home />
-                </RequireAuth>
-              }
-            />
+            <Route path="/" element={<Home />} />
             <Route
               path="/profil"
               element={
@@ -62,6 +56,14 @@ function App() {
               element={
                 <RequireAuth loginPath="/login">
                   <Logout />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <RequireAuth loginPath="/login">
+                  <NotFound />
                 </RequireAuth>
               }
             />
