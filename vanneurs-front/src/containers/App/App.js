@@ -6,7 +6,7 @@ import Home from "../../pages/Home";
 import Login from "../../pages/Login";
 import Profil from "../../pages/Profil";
 import refreshApi from "../../services/refreshApi";
-import NavBar from "../NavBar/Navbar";
+import NavBar from "../../components/NavBar/Navbar";
 import "./App.css";
 import Logout from "../../pages/Logout";
 import { NotFound } from "../../pages/NotFound";
@@ -22,8 +22,8 @@ function App() {
         authName="_auth"
         refresh={refreshApi}
       >
-        <NavBar />
         <BrowserRouter>
+          <NavBar/>
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Home />} />
