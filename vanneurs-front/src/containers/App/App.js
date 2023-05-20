@@ -1,6 +1,5 @@
 import { AuthProvider, RequireAuth } from "react-auth-kit";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Announcements from "../../pages/Announcements";
 import CreateAnnouncement from "../../pages/CreateAnnouncement";
 import Home from "../../pages/Home";
 import Login from "../../pages/Login";
@@ -10,11 +9,12 @@ import NavBar from "../../components/NavBar/Navbar";
 import "./App.css";
 import Logout from "../../pages/Logout";
 import { NotFound } from "../../pages/NotFound";
+import Announcements from "../Announcements/Announcements";
 
 function App() {
-  // fetch("http://localhost:8080/address")
-  //   .then((resp) => resp.json())
-  //   .then((resp) => console.log(resp));
+  fetch("http://localhost:8080/house")
+    .then((resp) => resp.json())
+    .then((resp) => console.log(resp));
   return (
     <div>
       <AuthProvider
@@ -39,7 +39,7 @@ function App() {
               path="/announcements"
               element={
                 <RequireAuth loginPath="/login">
-                  <Announcements />
+                  <Announcements/>
                 </RequireAuth>
               }
             />
