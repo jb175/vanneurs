@@ -38,11 +38,11 @@ public class Person {
     @JoinColumn()
     private House house;
 
-    @OneToOne(mappedBy = "person")
-    private Announcement announcement;
+    // @OneToOne(mappedBy = "person")
+    // private Announcement announcement;
 
-    @OneToOne(mappedBy = "person")
-    private Offer offer;
+    // @OneToOne(mappedBy = "person")
+    // private Offer offer;
 
     @OneToMany(mappedBy = "sender")
     private Collection<Message> messages;

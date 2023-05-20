@@ -1,0 +1,9 @@
+.house {
+    border: 2px solid #EFF3F4;
+    margin-bottom: 1em;
+    padding: 5px;
+}
+
+.house-image {
+    max-width: calc(100%);
+}

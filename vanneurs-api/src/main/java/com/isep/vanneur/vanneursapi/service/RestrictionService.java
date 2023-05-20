@@ -3,20 +3,24 @@ package com.isep.vanneur.vanneursapi.service;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.isep.vanneur.vanneursapi.dto.Restriction.RestrictionCreationDTO;
 import com.isep.vanneur.vanneursapi.model.Restriction;
 import com.isep.vanneur.vanneursapi.repository.RestrictionRepository;
 
-@Service
-public class RestrictionService {
-    @Autowired
-    private ModelMapper mapper;
+import lombok.RequiredArgsConstructor;
 
-    @Autowired
-    private RestrictionRepository restrictionRepository;
+@Service
+@RequiredArgsConstructor
+public class RestrictionService {
+    final private ModelMapper mapper;
+
+    final private HouseService houseService;
+
+    final private RestrictionListService restrictionListService;
+
+    final private RestrictionRepository restrictionRepository;
 
     public List<Restriction> getRestrictions() {
         return restrictionRepository.findAll();
@@ -28,6 +32,9 @@ public class RestrictionService {
 
     public Restriction createRestriction(RestrictionCreationDTO restrictionCreationDTO) {
         Restriction restriction = mapper.map(restrictionCreationDTO, Restriction.class);
+        restriction.setHouse(houseService.getHouse(restrictionCreationDTO.getHouse()));
+        restriction.setRestrictionList(
+                restrictionListService.getRestrictionList(restrictionCreationDTO.getRestrictionList()));
         return restrictionRepository.save(restriction);
     }
 

@@ -3,20 +3,24 @@ package com.isep.vanneur.vanneursapi.service;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.isep.vanneur.vanneursapi.dto.Announcement.AnnouncementCreationDTO;
 import com.isep.vanneur.vanneursapi.model.Announcement;
 import com.isep.vanneur.vanneursapi.repository.AnnouncementRepository;
 
-@Service
-public class AnnouncementService {
-    @Autowired
-    private ModelMapper mapper;
+import lombok.RequiredArgsConstructor;
 
-    @Autowired
-    private AnnouncementRepository announcementRepository;
+@Service
+@RequiredArgsConstructor
+public class AnnouncementService {
+    final private ModelMapper mapper;
+
+    final private PersonService personService;
+
+    final private HouseService houseService;
+
+    final private AnnouncementRepository announcementRepository;
 
     public List<Announcement> getAnnouncements() {
         return announcementRepository.findAll();
@@ -28,6 +32,8 @@ public class AnnouncementService {
 
     public Announcement createAnnouncement(AnnouncementCreationDTO announcementCreationDTO) {
         Announcement announcement = mapper.map(announcementCreationDTO, Announcement.class);
+        announcement.setPerson(personService.getPerson(announcementCreationDTO.getPerson()));
+        announcement.setHouse(houseService.getHouse(announcementCreationDTO.getHouse()));
         return announcementRepository.save(announcement);
     }
 

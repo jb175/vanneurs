@@ -3,20 +3,20 @@ package com.isep.vanneur.vanneursapi.service;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.isep.vanneur.vanneursapi.dto.Address.AddressCreationDTO;
 import com.isep.vanneur.vanneursapi.model.Address;
 import com.isep.vanneur.vanneursapi.repository.AddressRepository;
 
-@Service
-public class AddressService {
-    @Autowired
-    private ModelMapper mapper;
+import lombok.RequiredArgsConstructor;
 
-    @Autowired
-    private AddressRepository addressRepository;
+@Service
+@RequiredArgsConstructor
+public class AddressService {
+    final private ModelMapper mapper;
+
+    final private AddressRepository addressRepository;
 
     public List<Address> getAddresses() {
         return addressRepository.findAll();

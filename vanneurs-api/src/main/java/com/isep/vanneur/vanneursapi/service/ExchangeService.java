@@ -3,20 +3,22 @@ package com.isep.vanneur.vanneursapi.service;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.isep.vanneur.vanneursapi.dto.Exchange.ExchangeCreationDTO;
 import com.isep.vanneur.vanneursapi.model.Exchange;
 import com.isep.vanneur.vanneursapi.repository.ExchangeRepository;
 
-@Service
-public class ExchangeService {
-    @Autowired
-    private ModelMapper mapper;
+import lombok.RequiredArgsConstructor;
 
-    @Autowired
-    private ExchangeRepository exchangeRepository;
+@Service
+@RequiredArgsConstructor
+public class ExchangeService {
+    final private ModelMapper mapper;
+
+    final private HouseService houseService;
+
+    final private ExchangeRepository exchangeRepository;
 
     public List<Exchange> getExchanges() {
         return exchangeRepository.findAll();
@@ -28,6 +30,8 @@ public class ExchangeService {
 
     public Exchange createExchange(ExchangeCreationDTO exchangeCreationDTO) {
         Exchange exchange = mapper.map(exchangeCreationDTO, Exchange.class);
+        exchange.setHouse1(houseService.getHouse(exchangeCreationDTO.getHouse1()));
+        exchange.setHouse2(houseService.getHouse(exchangeCreationDTO.getHouse2()));
         return exchangeRepository.save(exchange);
     }
 

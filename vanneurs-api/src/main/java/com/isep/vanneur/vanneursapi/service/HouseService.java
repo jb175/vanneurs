@@ -3,20 +3,24 @@ package com.isep.vanneur.vanneursapi.service;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.isep.vanneur.vanneursapi.dto.House.HouseCreationDTO;
 import com.isep.vanneur.vanneursapi.model.House;
 import com.isep.vanneur.vanneursapi.repository.HouseRepository;
 
-@Service
-public class HouseService {
-    @Autowired
-    private ModelMapper mapper;
+import lombok.RequiredArgsConstructor;
 
-    @Autowired
-    private HouseRepository houseRepository;
+@Service
+@RequiredArgsConstructor
+public class HouseService {
+    @Lazy
+    final private AddressService addressService;
+
+    final private ModelMapper mapper;
+
+    final private HouseRepository houseRepository;
 
     public List<House> getHouses() {
         return houseRepository.findAll();
@@ -28,6 +32,7 @@ public class HouseService {
 
     public House createHouse(HouseCreationDTO houseCreationDTO) {
         House house = mapper.map(houseCreationDTO, House.class);
+        house.setAddress(addressService.getAddress(houseCreationDTO.getAddress()));
         return houseRepository.save(house);
     }
 
