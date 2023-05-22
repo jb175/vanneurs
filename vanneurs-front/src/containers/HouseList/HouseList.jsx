@@ -29,15 +29,16 @@ class HouseList extends Component {
     }
 
     fetchHouses() {
-        this.state = {...this.state, isFetching: true};
+        this.setState({...this.state, isFetching: true});
         fetch("http://localhost:8080/house")
             .then(response => response.json())
             .then(result => {
-                this.state = {houses: result, isFetching: false}
+                this.setState({houses: result, isFetching: false});
+                //this.state = {houses: result, isFetching: false};
             })
             .catch(e => {
                 console.log(e);
-                this.state = {...this.state, isFetching: false};
+                this.setState({...this.state, isFetching: false});
             });
     }
 }
