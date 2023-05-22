@@ -87,7 +87,7 @@ function NavBar() {
                   </li>
                   <li>
                     <NavLink
-                      to={"/disconnect"}
+                      to={"/logout"}
                       activeClassName="active"
                       className="dropdown-item"
                     >
