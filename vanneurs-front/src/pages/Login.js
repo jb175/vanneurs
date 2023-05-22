@@ -42,7 +42,7 @@ function Login() {
     <div className="container mt-5">
       <h2>Formulaire de connexion</h2>
       <form onSubmit={handleSubmit}>
-        <div class="form-group">
+        <div className="form-group">
           <label>E-mail :</label>
           <input
             value={username}

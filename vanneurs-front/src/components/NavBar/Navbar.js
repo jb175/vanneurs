@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useIsAuthenticated } from "react-auth-kit";
 
 function NavBar() {
@@ -10,11 +10,10 @@ function NavBar() {
       style={{ backgroundColor: "#335C81" }}
       aria-label="Fifth navbar example"
     >
-      {isAuthenticated() && (
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <Link className="navbar-brand" href="/">
             Vanneurs
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -27,6 +26,7 @@ function NavBar() {
             <span className="navbar-toggler-icon"></span>
           </button>
 
+          {isAuthenticated() && (
           <div className="collapse navbar-collapse" id="navbarsExample05">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -106,8 +106,41 @@ function NavBar() {
               />
             </form>
           </div>
+          ) || (
+          <div className="collapse navbar-collapse" id="navbarsExample05">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <NavLink
+                  to={"/"}
+                  activeClassName="active"
+                  className="nav-link"
+                  aria-current="page"
+                >
+                  Page d'accueil
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  to={"/login"}
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                  Login
+                </NavLink>
+              </li>
+            </ul>
+            <form role="search">
+              <input
+                className="form-control"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+            </form>
+          </div>
+          )
+          }
         </div>
-      )}
     </nav>
   );
 }
