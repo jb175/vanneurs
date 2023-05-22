@@ -1,15 +1,15 @@
 import { AuthProvider, RequireAuth } from "react-auth-kit";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NavBar from "../../components/NavBar/Navbar";
 import CreateAnnouncement from "../../pages/CreateAnnouncement";
 import Home from "../../pages/Home";
 import Login from "../../pages/Login";
-import Profil from "../../pages/Profil";
-import refreshApi from "../../services/refreshApi";
-import NavBar from "../../components/NavBar/Navbar";
-import "./App.css";
 import Logout from "../../pages/Logout";
+import Register from "../../pages/Register";
 import { NotFound } from "../../pages/NotFound";
+import Profil from "../../pages/Profil";
 import Announcements from "../Announcements/Announcements";
+import "./App.css";
 
 function App() {
   fetch("http://localhost:8080/house")
@@ -17,15 +17,12 @@ function App() {
     .then((resp) => console.log(resp));
   return (
     <div>
-      <AuthProvider
-        authType="localstorage"
-        authName="_auth"
-        refresh={refreshApi}
-      >
+      <AuthProvider authType="localstorage" authName="_auth">
         <BrowserRouter>
           <NavBar />
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/" element={<Home />} />
             <Route
               path="/profil"
