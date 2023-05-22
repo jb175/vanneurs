@@ -23,7 +23,7 @@ function App() {
         refresh={refreshApi}
       >
         <BrowserRouter>
-          <NavBar/>
+          <NavBar />
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Home />} />
@@ -39,7 +39,7 @@ function App() {
               path="/announcements"
               element={
                 <RequireAuth loginPath="/login">
-                  <Announcements/>
+                  <Announcements />
                 </RequireAuth>
               }
             />
