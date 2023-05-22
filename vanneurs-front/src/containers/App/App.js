@@ -10,6 +10,7 @@ import "./App.css";
 import Logout from "../../pages/Logout";
 import { NotFound } from "../../pages/NotFound";
 import Announcements from "../Announcements/Announcements";
+import HouseDetails from "../../components/HouseDetails/HouseDetails";
 
 function App() {
   fetch("http://localhost:8080/house")
@@ -40,6 +41,14 @@ function App() {
               element={
                 <RequireAuth loginPath="/login">
                   <Announcements />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/announcements/:id"
+              element={
+                <RequireAuth loginPath="/login">
+                  <HouseDetails/>
                 </RequireAuth>
               }
             />

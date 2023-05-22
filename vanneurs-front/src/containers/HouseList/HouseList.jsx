@@ -37,7 +37,6 @@ class HouseList extends Component {
                 //this.state = {houses: result, isFetching: false};
             })
             .catch(e => {
-                console.log(e);
                 this.setState({...this.state, isFetching: false});
             });
     }
