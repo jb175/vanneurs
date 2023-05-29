@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.isep.vanneur.vanneursapi.dto.Person.PersonCreationDTO;
+import com.isep.vanneur.vanneursapi.dto.Person.PersonUpdateHouseDTO;
 import com.isep.vanneur.vanneursapi.model.Person;
 import com.isep.vanneur.vanneursapi.service.PersonService;
 
@@ -33,14 +33,14 @@ public class PersonController {
     }
 
     @PostMapping
-    public Person createPerson(@RequestBody PersonCreationDTO personCreationDTO) {
-        return personService.createPerson(personCreationDTO);
+    public Person createPerson(@RequestBody PersonUpdateHouseDTO personUpdateHouseDTO) {
+        return personService.createPerson(personUpdateHouseDTO);
     }
 
     @PutMapping("/{id}")
     public Person updatePerson(@PathVariable Long id,
-            @RequestBody PersonCreationDTO personCreationDTO) {
-        return personService.updatePerson(id, personCreationDTO);
+            @RequestBody PersonUpdateHouseDTO personUpdateHouseDTO) {
+        return personService.updatePerson(id, personUpdateHouseDTO);
     }
 
     @DeleteMapping("/{id}")

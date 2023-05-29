@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.isep.vanneur.vanneursapi.dto.Announcement.AnnouncementCreationDTO;
+import com.isep.vanneur.vanneursapi.enumList.State;
 import com.isep.vanneur.vanneursapi.model.Announcement;
 import com.isep.vanneur.vanneursapi.repository.AnnouncementRepository;
 
@@ -34,6 +35,7 @@ public class AnnouncementService {
         Announcement announcement = mapper.map(announcementCreationDTO, Announcement.class);
         announcement.setPerson(personService.getPerson(announcementCreationDTO.getPerson()));
         announcement.setHouse(houseService.getHouse(announcementCreationDTO.getHouse()));
+        announcement.setState(State.AVAILABLE);
         return announcementRepository.save(announcement);
     }
 

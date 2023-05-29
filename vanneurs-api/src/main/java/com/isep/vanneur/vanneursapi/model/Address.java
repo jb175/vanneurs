@@ -13,11 +13,11 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int number;
+    private String number;
 
     private String street;
 
-    private int zipCode;
+    private String zipCode;
 
     private String city;
 

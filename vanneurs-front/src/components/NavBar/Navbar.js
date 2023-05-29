@@ -10,23 +10,23 @@ function NavBar() {
       style={{ backgroundColor: "#335C81" }}
       aria-label="Fifth navbar example"
     >
-        <div className="container-fluid">
-          <Link className="navbar-brand" href="/">
-            Vanneurs
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarsExample05"
-            aria-controls="navbarsExample05"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+      <div className="container-fluid">
+        <Link className="navbar-brand" href="/">
+          Vanneurs
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsExample05"
+          aria-controls="navbarsExample05"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-          {isAuthenticated() && (
+        {(isAuthenticated() && (
           <div className="collapse navbar-collapse" id="navbarsExample05">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -50,7 +50,7 @@ function NavBar() {
               </li>
               <li className="nav-item">
                 <NavLink
-                  to={"/myhouse"}
+                  to={"/my-house"}
                   activeClassName="active"
                   className="nav-link"
                 >
@@ -106,7 +106,7 @@ function NavBar() {
               />
             </form>
           </div>
-          ) || (
+        )) || (
           <div className="collapse navbar-collapse" id="navbarsExample05">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -138,9 +138,8 @@ function NavBar() {
               />
             </form>
           </div>
-          )
-          }
-        </div>
+        )}
+      </div>
     </nav>
   );
 }
