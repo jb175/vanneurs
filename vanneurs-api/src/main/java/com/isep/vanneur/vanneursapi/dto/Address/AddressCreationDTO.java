@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class AddressCreationDTO {
-    private int number;
+    private String number;
 
     private String street;
 
-    private int zipCode;
+    private String zipCode;
 
     private String city;
 

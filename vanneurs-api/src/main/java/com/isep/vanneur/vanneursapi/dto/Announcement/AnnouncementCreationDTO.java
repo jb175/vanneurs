@@ -12,8 +12,6 @@ public class AnnouncementCreationDTO {
 
     private Date endDate;
 
-    private State state;
-
     private Long person;
 
     private Long house;

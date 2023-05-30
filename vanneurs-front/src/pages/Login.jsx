@@ -30,12 +30,13 @@ function Login() {
     })
     .then((response) => response.json())
     .then((user) => {
+      console.log(user.person);
       if (user.authorized) {
         signIn({
           token: user.access_token,
           expiresIn: 3600,
           tokenType: "Bearer",
-          authState: { person: user.data },
+          authState: { person: user.person },
         });
         navigate("/");
       }

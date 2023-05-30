@@ -8,7 +8,5 @@ public class HouseCreationDTO {
 
     private String description;
 
-    private float avgRating;
-
     private Long address;
 }

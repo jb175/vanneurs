@@ -28,7 +28,7 @@ function Register() {
             },
             body: JSON.stringify(formRegister)
         })
-        .then((response) => console.log(response))
+        .then((response) => window.location.href = '/login')
         .catch((error => console.log(error)));
       };
      

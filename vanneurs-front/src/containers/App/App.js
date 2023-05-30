@@ -5,17 +5,15 @@ import CreateAnnouncement from "../../pages/CreateAnnouncement";
 import Home from "../../pages/Home";
 import Login from "../../pages/Login";
 import Logout from "../../pages/Logout";
-import Register from "../../pages/Register";
+import House from "../../pages/House";
 import { NotFound } from "../../pages/NotFound";
 import Profil from "../../pages/Profil";
+import Register from "../../pages/Register";
 import Announcements from "../Announcements/Announcements";
 import HouseDetails from "../../components/HouseDetails/HouseDetails";
 import "./App.css";
 
 function App() {
-  fetch("http://localhost:8080/house")
-    .then((resp) => resp.json())
-    .then((resp) => console.log(resp));
   return (
     <div>
       <AuthProvider authType="localstorage" authName="_auth">
@@ -30,6 +28,14 @@ function App() {
               element={
                 <RequireAuth loginPath="/login">
                   <Profil />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/my-house"
+              element={
+                <RequireAuth loginPath="/login">
+                  <House />
                 </RequireAuth>
               }
             />

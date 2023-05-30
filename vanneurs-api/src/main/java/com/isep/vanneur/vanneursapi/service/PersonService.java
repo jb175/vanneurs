@@ -5,7 +5,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import com.isep.vanneur.vanneursapi.dto.Person.PersonCreationDTO;
+import com.isep.vanneur.vanneursapi.dto.Person.PersonUpdateHouseDTO;
 import com.isep.vanneur.vanneursapi.model.Person;
 import com.isep.vanneur.vanneursapi.repository.PersonRepository;
 
@@ -28,16 +28,17 @@ public class PersonService {
         return personRepository.findById(id).orElseThrow();
     }
 
-    public Person createPerson(PersonCreationDTO personCreationDTO) {
-        Person person = mapper.map(personCreationDTO, Person.class);
-        person.setHouse(houseService.getHouse(personCreationDTO.getHouse()));
+    public Person createPerson(PersonUpdateHouseDTO personUpdateHouseDTO) {
+        Person person = mapper.map(personUpdateHouseDTO, Person.class);
+        person.setHouse(houseService.getHouse(personUpdateHouseDTO.getHouse()));
         return personRepository.save(person);
     }
 
-    public Person updatePerson(Long id, PersonCreationDTO personCreationDTO) {
-        Person currentPerson = getPerson(id);
-        mapper.map(personCreationDTO, currentPerson);
-        return personRepository.save(currentPerson);
+    public Person updatePerson(Long id, PersonUpdateHouseDTO personUpdateHouseDTO) {
+        Person person = getPerson(id);
+        mapper.map(personUpdateHouseDTO, person);
+        person.setHouse(houseService.getHouse(personUpdateHouseDTO.getHouse()));
+        return personRepository.save(person);
     }
 
     public void deletePerson(Long id) {
