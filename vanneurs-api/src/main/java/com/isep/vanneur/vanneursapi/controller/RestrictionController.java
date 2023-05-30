@@ -32,6 +32,11 @@ public class RestrictionController {
         return restrictionService.getRestriction(id);
     }
 
+    @GetMapping("/house/{id}")
+    public Restriction getRestrictionByHouse(@PathVariable Long id) {
+        return restrictionService.getRestrictionByHouse(id);
+    }
+
     @PostMapping
     public Restriction createRestriction(@RequestBody RestrictionCreationDTO restrictionCreationDTO) {
         return restrictionService.createRestriction(restrictionCreationDTO);

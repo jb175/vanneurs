@@ -30,11 +30,15 @@ public class RestrictionService {
         return restrictionRepository.findById(id).orElseThrow();
     }
 
+    public Restriction getRestrictionByHouse(Long id) {
+        return restrictionRepository.findByHouseId(id);
+    }
+
     public Restriction createRestriction(RestrictionCreationDTO restrictionCreationDTO) {
         Restriction restriction = mapper.map(restrictionCreationDTO, Restriction.class);
         restriction.setHouse(houseService.getHouse(restrictionCreationDTO.getHouse()));
-        restriction.setRestrictionList(
-                restrictionListService.getRestrictionList(restrictionCreationDTO.getRestrictionList()));
+        // restriction.setRestrictionList(
+        // restrictionListService.getRestrictionList(restrictionCreationDTO.getRestrictionList()));
         return restrictionRepository.save(restriction);
     }
 

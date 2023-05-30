@@ -8,5 +8,5 @@ public class RestrictionCreationDTO {
 
     private Long house;
 
-    private Long restrictionList;
+    // private Long restrictionList;
 }
