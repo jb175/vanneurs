@@ -21,7 +21,7 @@ public class Restriction {
     @JoinColumn()
     private House house;
 
-    @ManyToOne()
-    @JoinColumn()
-    private RestrictionList restrictionList;
+    // @ManyToOne()
+    // @JoinColumn()
+    // private RestrictionList restrictionList;
 }

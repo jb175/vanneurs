@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.isep.vanneur.vanneursapi.model.Restriction;
 
 public interface RestrictionRepository extends JpaRepository<Restriction, Long> {
-
+    Restriction findByHouseId(Long id);
 }

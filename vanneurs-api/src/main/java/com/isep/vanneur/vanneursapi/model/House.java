@@ -2,6 +2,8 @@ package com.isep.vanneur.vanneursapi.model;
 
 import java.util.Collection;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,6 +36,7 @@ public class House {
     @OneToMany(mappedBy = "house2")
     private Collection<Exchange> exchanges2;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "house")
     private Collection<Restriction> restrictions;
 

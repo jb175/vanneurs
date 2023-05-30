@@ -17,7 +17,7 @@ import com.isep.vanneur.vanneursapi.model.RestrictionList;
 import com.isep.vanneur.vanneursapi.service.RestrictionListService;
 
 @RestController
-@RequestMapping("/restrictionList")
+@RequestMapping("/restriction-list")
 public class RestrictionListController {
     @Autowired
     private RestrictionListService restrictionListService;

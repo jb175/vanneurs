@@ -17,7 +17,7 @@ import com.isep.vanneur.vanneursapi.model.RequirementList;
 import com.isep.vanneur.vanneursapi.service.RequirementListService;
 
 @RestController
-@RequestMapping("/requirementList")
+@RequestMapping("/requirement-list")
 public class RequirementListController {
     @Autowired
     private RequirementListService requirementListService;

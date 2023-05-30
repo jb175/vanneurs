@@ -18,6 +18,6 @@ public class RestrictionList {
 
     private String name;
 
-    @OneToMany(mappedBy = "restrictionList")
-    private Collection<Restriction> restrictions;
+    // @OneToMany(mappedBy = "restrictionList")
+    // private Collection<Restriction> restrictions;
 }
