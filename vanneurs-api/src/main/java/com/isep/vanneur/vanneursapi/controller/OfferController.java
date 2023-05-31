@@ -32,6 +32,11 @@ public class OfferController {
         return offerService.getOffer(id);
     }
 
+    @GetMapping("/person-to/{id}")
+    public List<Offer> getOffersByPersonTo(@PathVariable Long id) {
+        return offerService.getOffersByPersonTo(id);
+    }
+
     @PostMapping
     public Offer createOffer(@RequestBody OfferCreationDTO offerCreationDTO) {
         return offerService.createOffer(offerCreationDTO);

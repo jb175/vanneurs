@@ -30,9 +30,11 @@ public class House {
     @JoinColumn()
     private Address address;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "house1")
     private Collection<Exchange> exchanges1;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "house2")
     private Collection<Exchange> exchanges2;
 

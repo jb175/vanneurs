@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import './HouseDetails.css';
+import { useAuthUser } from "react-auth-kit";
 
 function HouseDetails() {
-
+    const auth = useAuthUser();
     const { id } = useParams();
     const [house, setHouse] = useState({
         description: '',
@@ -25,7 +26,32 @@ function HouseDetails() {
             .then(result => {
                 setHouse(result);
             })
-    }, [house, setHouse]);
+    }, [setHouse]);
+
+    const handleOffer = (e) => {
+        fetch(`http://localhost:8080/announcement/house/${id}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        }).then((response) => response.json())
+        .then((responseAnnouncement) => {
+            console.log(responseAnnouncement)
+            fetch('http://localhost:8080/offer', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    personFrom: auth().person.id,
+                    personTo: responseAnnouncement.person,
+                    announcement: responseAnnouncement.id
+                })
+            })
+        })
+    }
   
     return(
         <div className="container">
@@ -55,6 +81,9 @@ function HouseDetails() {
                         </ol>
                     </div>
                 </div>
+            </div>
+            <div className="d-flex justify-content-center">
+                <button type="button" onClick={handleOffer} className="btn btn-primary">Je suis intéressé par cette maison</button>
             </div>
         </div>
     )

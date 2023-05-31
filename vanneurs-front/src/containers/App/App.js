@@ -12,6 +12,8 @@ import Register from "../../pages/Register";
 import Announcements from "../Announcements/Announcements";
 import HouseDetails from "../../components/HouseDetails/HouseDetails";
 import "./App.css";
+import Offers from "../../pages/Offers";
+import Exchanges from "../../pages/Exchanges";
 
 function App() {
   return (
@@ -51,7 +53,23 @@ function App() {
               path="/announcements/:id"
               element={
                 <RequireAuth loginPath="/login">
-                  <HouseDetails/>
+                  <HouseDetails />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/offers/"
+              element={
+                <RequireAuth loginPath="/login">
+                  <Offers />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/exchanges/"
+              element={
+                <RequireAuth loginPath="/login">
+                  <Exchanges />
                 </RequireAuth>
               }
             />

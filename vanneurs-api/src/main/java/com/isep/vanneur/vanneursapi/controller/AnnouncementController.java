@@ -32,6 +32,11 @@ public class AnnouncementController {
         return announcementService.getAnnouncement(id);
     }
 
+    @GetMapping("/house/{id}")
+    public Announcement getAnnouncementByHouse(@PathVariable Long id) {
+        return announcementService.getAnnouncementByHouse(id);
+    }
+
     @PostMapping
     public Announcement createAnnouncement(@RequestBody AnnouncementCreationDTO announcementCreationDTO) {
         return announcementService.createAnnouncement(announcementCreationDTO);

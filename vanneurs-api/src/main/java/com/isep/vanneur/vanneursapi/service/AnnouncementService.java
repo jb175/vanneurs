@@ -31,6 +31,10 @@ public class AnnouncementService {
         return announcementRepository.findById(id).orElseThrow();
     }
 
+    public Announcement getAnnouncementByHouse(Long id) {
+        return announcementRepository.findByHouseId(id);
+    }
+
     public Announcement createAnnouncement(AnnouncementCreationDTO announcementCreationDTO) {
         Announcement announcement = mapper.map(announcementCreationDTO, Announcement.class);
         announcement.setPerson(personService.getPerson(announcementCreationDTO.getPerson()));

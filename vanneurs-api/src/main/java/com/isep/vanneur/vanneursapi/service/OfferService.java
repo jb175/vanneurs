@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.isep.vanneur.vanneursapi.dto.Offer.OfferCreationDTO;
+import com.isep.vanneur.vanneursapi.enumList.State;
 import com.isep.vanneur.vanneursapi.model.Offer;
 import com.isep.vanneur.vanneursapi.repository.OfferRepository;
 
@@ -30,10 +31,16 @@ public class OfferService {
         return offerRepository.findById(id).orElseThrow();
     }
 
+    public List<Offer> getOffersByPersonTo(Long id) {
+        return offerRepository.findByPersonToId(id);
+    }
+
     public Offer createOffer(OfferCreationDTO offerCreationDTO) {
         Offer offer = mapper.map(offerCreationDTO, Offer.class);
-        offer.setPerson(personService.getPerson(offerCreationDTO.getPerson()));
+        offer.setPersonFrom(personService.getPerson(offerCreationDTO.getPersonFrom()));
+        offer.setPersonTo(personService.getPerson(offerCreationDTO.getPersonTo()));
         offer.setAnnouncement(announcementService.getAnnouncement(offerCreationDTO.getAnnouncement()));
+        offer.setState(State.PROGRESS);
         return offerRepository.save(offer);
     }
 

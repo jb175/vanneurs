@@ -57,6 +57,24 @@ function NavBar() {
                   Ma maison
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink
+                  to={"/offers"}
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                  Offres
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  to={"/exchanges"}
+                  activeClassName="active"
+                  className="nav-link"
+                >
+                  Echanges
+                </NavLink>
+              </li>
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
@@ -97,14 +115,6 @@ function NavBar() {
                 </ul>
               </li>
             </ul>
-            <form role="search">
-              <input
-                className="form-control"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-            </form>
           </div>
         )) || (
           <div className="collapse navbar-collapse" id="navbarsExample05">
