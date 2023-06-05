@@ -3,7 +3,7 @@ import React  from "react";
 import './House.css';
 import { Link } from "react-router-dom";
 
-const House = ({photoPath, description , avgRating, address, id}) => (
+const House = ({photoPath, description , avgRating, numberRating, address, id}) => (
     <Link className="house-link" to={"/announcements/"+id}>
         <div className="house container">
             <div className="row">
@@ -11,7 +11,7 @@ const House = ({photoPath, description , avgRating, address, id}) => (
                     <h3 className="house-description">{description}</h3>
                 </div>
                 <div className="col-sm-3">
-                    {getNotation(avgRating)}
+                    {getNotation(avgRating)} ({numberRating})
                 </div>
             </div>
             <div className="row">
@@ -21,7 +21,7 @@ const House = ({photoPath, description , avgRating, address, id}) => (
                 <ol className="list-unstyled col-sm-4">
                     <li className="house-description">{description}</li>
                     <li className="house-address">{address.number} {address.street}</li>
-                    <li className="house-city">{address.zip_code} {address.city} {address.country}</li>
+                    <li className="house-city">{address.zipCode} {address.city} {address.country}</li>
                 </ol>
             </div>
         </div>

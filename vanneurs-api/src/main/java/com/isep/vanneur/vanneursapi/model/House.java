@@ -24,6 +24,8 @@ public class House {
 
     private float avgRating;
 
+    private int numberRating;
+
     @OneToOne()
     @JoinColumn()
     private Address address;

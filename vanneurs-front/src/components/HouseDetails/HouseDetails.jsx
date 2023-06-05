@@ -10,6 +10,7 @@ function HouseDetails() {
         description: '',
         photoPath: '',
         avgRating: 0,
+        numberRating: 0,
         address: {
             city: '',
             country: '',
@@ -41,7 +42,7 @@ function HouseDetails() {
                             <h3 className="house-description">{house.description}</h3>
                         </div>
                         <div className="col-sm-3">
-                            {getNotation(house.avgRating)}
+                            {getNotation(house.avgRating)} ({house.numberRating})
                         </div>
                     </div>
                     <div className="row">
@@ -51,7 +52,7 @@ function HouseDetails() {
                         <ol className="list-unstyled col-sm-4">
                             <li className="house-description">{house.description}</li>
                             <li className="house-address">{house.address.number} {house.address.street}</li>
-                            <li className="house-city">{house.address.zip_code} {house.address.city} {house.address.country}</li>
+                            <li className="house-city">{house.address.zipCode} {house.address.city} {house.address.country}</li>
                         </ol>
                     </div>
                 </div>

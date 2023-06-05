@@ -1,36 +1,57 @@
-import React from "react";
+import React, { Component } from "react";
 import HouseList from "../HouseList/HouseList";
+import AnnouncementsFilters from "../../components/AnnouncementsFilters/AnnouncementsFilters";
 
-function Announcements() {
-  return (
-    <div className="container">
-      <div className="row g-5">
-        <div className="col-md-3">
-          <div className="position-sticky">
-            <div className="p-4 mb-3 bg-body-tertiary rounded">
-              <h4 className="fst-italic">Filtres</h4>
-              <p className="mb-0">Utilise ces filtres pour rechercher la maison de tes réves!</p>
-            </div>
+class Announcements extends Component {
 
-            <div className="p-4">
-              <h4 className="fst-italic">Filtre 1</h4>
-              <ol className="list-unstyled mb-0">
-                <li>Test</li>
-                <li>Tets2</li>
-              </ol>
-            </div>
+  constructor(props) {
+    super(props);
+    this.state = {
+      countryFilter: "",
+      cityFilter: "",
+    }
+  }
 
-            <div className="p-4">
-              <h4 className="fst-italic">Filtre 2</h4>
-            </div>
+  filterCountry = (country) => {
+    console.log("click");
+    this.setState(state => ({
+      ...state,
+      countryFilter: country
+    }));
+  }
+
+  filterCity = (city) => {
+    console.log("click");
+    this.setState(state => ({
+      ...state,
+      cityFilter: city
+    }));
+  }
+
+  filter = (country, city) => {
+    this.setState(state => ({
+      ...state,
+      countryFilter: country || this.state.countryFilter,
+      cityFilter: city || this.state.cityFilter
+    }));
+  }
+
+  render() {
+    const { countryFilter, cityFilter } = this.state
+    console.log(countryFilter);
+    return (
+      <div className="container">
+        <div className="row g-5">
+          <div className="col-md-3">
+            <AnnouncementsFilters filter={this.filter}/>
+          </div>
+          <div className="col-md-9">
+            <HouseList country={countryFilter} city={cityFilter} />
           </div>
         </div>
-        <div className="col-md-9">
-          <HouseList/>
-        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Announcements;
