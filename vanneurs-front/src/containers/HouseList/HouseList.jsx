@@ -9,7 +9,8 @@ class HouseList extends Component {
         console.log(props.countryFilter);
         this.state = {
             isFetching: false,
-            houses: []
+            houses: [],
+            announcements: []
         }
     }
 
@@ -23,6 +24,15 @@ class HouseList extends Component {
             .then(response => response.json())
             .then(result => {
                 this.setState({houses: result, isFetching: false});
+                //this.state = {houses: result, isFetching: false};
+            })
+            .catch(e => {
+                this.setState({...this.state, isFetching: false});
+            });
+        fetch("http://localhost:8080/announcement/search?country="+countryParam+"&city="+cityParam+"")
+            .then(response => response.json())
+            .then(result => {
+                this.setState({announcements: result, isFetching: false});
                 //this.state = {houses: result, isFetching: false};
             })
             .catch(e => {
@@ -49,14 +59,20 @@ class HouseList extends Component {
       }
 
     render() {
-        const { houses } = this.state
+        const { houses, announcements } = this.state
         return (
             <div>
                 <h1>House List</h1>
-                {houses.map((house, index) => (
+                {/* {houses.map((house, index) => (
                     <House 
                         key={house.number}
                         {...house}
+                    />
+                ))} */}
+                {announcements.map((announce, index) => (
+                    <House 
+                        key={announce.number}
+                        {...announce}
                     />
                 ))}
             </div>

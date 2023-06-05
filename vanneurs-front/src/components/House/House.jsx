@@ -3,30 +3,42 @@ import React  from "react";
 import './House.css';
 import { Link } from "react-router-dom";
 
-const House = ({photoPath, description , avgRating, numberRating, address, id}) => (
+const House = ({startDate, endDate, state, person, house, offer, id}) => (
     <Link className="house-link" to={"/announcements/"+id}>
         <div className="house container">
             <div className="row">
                 <div className="col-sm-9">
-                    <h3 className="house-description">{description}</h3>
+                    <h3 className="house-description">{house.description}</h3>
                 </div>
                 <div className="col-sm-3">
-                    {getNotation(avgRating)} ({numberRating})
+                    {getNotation(house.avgRating)} ({house.numberRating})
                 </div>
             </div>
             <div className="row">
                 <div className="col-sm-8">
-                    <img className="house-image" src={photoPath} role="presentation" alt="" typeof=""/>
+                    <img className="house-image" src={house.photoPath} role="presentation" alt="" typeof=""/>
                 </div>
                 <ol className="list-unstyled col-sm-4">
-                    <li className="house-description">{description}</li>
-                    <li className="house-address">{address.number} {address.street}</li>
-                    <li className="house-city">{address.zipCode} {address.city} {address.country}</li>
+                    <li className="house-description">{house.description}</li>
+                    <li className="house-address">{house.address.number} {house.address.street}</li>
+                    <li className="house-city">{house.address.zipCode} {house.address.city} {house.address.country}</li>
+                    <li className="house-dates">{displayDates(startDate, endDate)}</li>
                 </ol>
             </div>
         </div>
     </Link>
 );
+
+function displayDates(startDate, endDate) {
+    if(startDate !== null && endDate !== null)
+        return "du " + startDate + " au " + endDate;
+    else if(startDate !== null)
+        return "à partir du " + startDate;
+    else if(startDate !== null)
+        return "jusqu'au " + endDate;
+    else
+        return "pas de dates précisées";
+}
 
 function getNotation(avgRating) {
     let stars = [];

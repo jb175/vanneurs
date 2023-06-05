@@ -1,6 +1,7 @@
 package com.isep.vanneur.vanneursapi.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,13 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AnnouncementService {
-    final private ModelMapper mapper;
+    private final ModelMapper mapper;
 
-    final private PersonService personService;
+    private final PersonService personService;
 
-    final private HouseService houseService;
+    private final HouseService houseService;
 
-    final private AnnouncementRepository announcementRepository;
+    private final AnnouncementRepository announcementRepository;
 
     public List<Announcement> getAnnouncements() {
         return announcementRepository.findAll();
@@ -47,5 +48,13 @@ public class AnnouncementService {
 
     public void deleteAnnouncement(Long id) {
         announcementRepository.deleteById(id);
+    }
+
+    public List<Announcement> getAnnouncementFiltered(String country, String city) {
+        return getAnnouncements().stream()
+            .filter(announcement -> country.equals("") || Objects.equals(announcement.getHouse().getAddress().getCountry(), country))
+            .filter(announcement -> city.equals("") || Objects.equals(announcement.getHouse().getAddress().getCity(), city))
+            .sorted((announcement0, announcement1) -> (announcement0.getHouse().getAddress().getId() > announcement1.getHouse().getAddress().getId() ? 1 : -1))
+            .toList();
     }
 }
