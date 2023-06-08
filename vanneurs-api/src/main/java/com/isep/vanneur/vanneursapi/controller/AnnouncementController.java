@@ -34,8 +34,13 @@ public class AnnouncementController {
     }
 
     @GetMapping("/search")
-    public List<Announcement> getAnnouncementFiltered(@Param(value = "country") String country, @Param(value = "city") String city) {
-        return announcementService.getAnnouncementFiltered(country, city);
+    public List<Announcement> getAnnouncementFiltered(
+            @Param(value = "country") String country,
+            @Param(value = "city") String city,
+            @Param(value = "from") String from,
+            @Param(value = "to") String to,
+            @Param(value = "orderBy") String orderBy) {
+        return announcementService.getAnnouncementFiltered(country, city, from, to, orderBy);
     }
 
     @PostMapping

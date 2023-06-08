@@ -8,14 +8,24 @@ class AnnouncementsFilters extends Component {
 
   
     filterCountry = (country) => {
-      console.log("click");
-      this.props.filter(country, undefined)
+      this.props.filter(country, undefined, undefined, undefined, undefined);
     }
   
     filterCity = (city) => {
-        console.log("click");
-        this.props.filter(undefined, city)
+        this.props.filter(undefined, city, undefined, undefined, undefined);
     }
+
+    filterDateFrom = (from) => {
+      this.props.filter(undefined, undefined, from, undefined, undefined);
+    }
+  
+    filterDateTo = (to) => {
+        this.props.filter(undefined, undefined, undefined, to, undefined);
+    }
+
+    filterOrderBy = (orderBy) => {
+      this.props.filter(undefined, undefined, undefined, undefined, orderBy);
+  }
   
     render() {
       return (
@@ -29,9 +39,9 @@ class AnnouncementsFilters extends Component {
     
             <CityFilter filterCity={this.filterCity}/>
     
-            <DateFilter/>
+            <DateFilter filterDateFrom={this.filterDateFrom} filterDateTo={this.filterDateTo}/>
     
-            <OrderBy/>
+            <OrderBy filterOrderBy={this.filterOrderBy}/>
         </div>
       );
     }

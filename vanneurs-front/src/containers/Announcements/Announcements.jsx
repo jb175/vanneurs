@@ -9,36 +9,25 @@ class Announcements extends Component {
     this.state = {
       countryFilter: "",
       cityFilter: "",
+      fromFilter: "",
+      toFilter: "",
+      orderByFilter: ""
     }
   }
 
-  filterCountry = (country) => {
-    console.log("click");
+  filter = (country, city, from, to, orderBy) => {
     this.setState(state => ({
       ...state,
-      countryFilter: country
-    }));
-  }
-
-  filterCity = (city) => {
-    console.log("click");
-    this.setState(state => ({
-      ...state,
-      cityFilter: city
-    }));
-  }
-
-  filter = (country, city) => {
-    this.setState(state => ({
-      ...state,
-      countryFilter: country || this.state.countryFilter,
-      cityFilter: city || this.state.cityFilter
+      countryFilter: (country !== undefined ? country : this.state.countryFilter),
+      cityFilter: (city !== undefined ? city : this.state.cityFilter),
+      fromFilter: (from !== undefined ? from : this.state.fromFilter),
+      toFilter: (to !== undefined ? to : this.state.toFilter),
+      orderByFilter: (orderBy !== undefined ? orderBy : this.state.orderByFilter)
     }));
   }
 
   render() {
-    const { countryFilter, cityFilter } = this.state
-    console.log(countryFilter);
+    const { countryFilter, cityFilter, fromFilter, toFilter, orderByFilter } = this.state
     return (
       <div className="container">
         <div className="row g-5">
@@ -46,7 +35,7 @@ class Announcements extends Component {
             <AnnouncementsFilters filter={this.filter}/>
           </div>
           <div className="col-md-9">
-            <HouseList country={countryFilter} city={cityFilter} />
+            <HouseList country={countryFilter} city={cityFilter} from={fromFilter} to={toFilter} orderBy={orderByFilter}/>
           </div>
         </div>
       </div>
