@@ -1,36 +1,46 @@
-import React from "react";
+import React, { Component } from "react";
 import HouseList from "../HouseList/HouseList";
+import AnnouncementsFilters from "../../components/AnnouncementsFilters/AnnouncementsFilters";
 
-function Announcements() {
-  return (
-    <div className="container">
-      <div className="row g-5">
-        <div className="col-md-3">
-          <div className="position-sticky">
-            <div className="p-4 mb-3 bg-body-tertiary rounded">
-              <h4 className="fst-italic">Filtres</h4>
-              <p className="mb-0">Utilise ces filtres pour rechercher la maison de tes réves!</p>
-            </div>
+class Announcements extends Component {
 
-            <div className="p-4">
-              <h4 className="fst-italic">Filtre 1</h4>
-              <ol className="list-unstyled mb-0">
-                <li>Test</li>
-                <li>Tets2</li>
-              </ol>
-            </div>
+  constructor(props) {
+    super(props);
+    this.state = {
+      countryFilter: "",
+      cityFilter: "",
+      fromFilter: "",
+      toFilter: "",
+      orderByFilter: ""
+    }
+  }
 
-            <div className="p-4">
-              <h4 className="fst-italic">Filtre 2</h4>
-            </div>
+  filter = (country, city, from, to, orderBy) => {
+    this.setState(state => ({
+      ...state,
+      countryFilter: (country !== undefined ? country : this.state.countryFilter),
+      cityFilter: (city !== undefined ? city : this.state.cityFilter),
+      fromFilter: (from !== undefined ? from : this.state.fromFilter),
+      toFilter: (to !== undefined ? to : this.state.toFilter),
+      orderByFilter: (orderBy !== undefined ? orderBy : this.state.orderByFilter)
+    }));
+  }
+
+  render() {
+    const { countryFilter, cityFilter, fromFilter, toFilter, orderByFilter } = this.state
+    return (
+      <div className="container">
+        <div className="row g-5">
+          <div className="col-md-3">
+            <AnnouncementsFilters filter={this.filter}/>
+          </div>
+          <div className="col-md-9">
+            <HouseList country={countryFilter} city={cityFilter} from={fromFilter} to={toFilter} orderBy={orderByFilter}/>
           </div>
         </div>
-        <div className="col-md-9">
-          <HouseList/>
-        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Announcements;

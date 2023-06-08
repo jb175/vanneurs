@@ -2,14 +2,14 @@ version: '3'
 services:
   mysql:
     image: mysql:8
-    restart: always
+    # restart: always
     environment:
       MYSQL_ROOT_PASSWORD: vanneurs1234!root
       MYSQL_DATABASE: vanneurs_database
     volumes:
       - ./vanneurs-db:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
   api:
     build: ./vanneurs-api
     ports:
