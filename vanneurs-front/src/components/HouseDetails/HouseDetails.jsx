@@ -35,12 +35,20 @@ function HouseDetails() {
     });
 
     useEffect(() => {
-        fetch("http://localhost:8080/announce/"+id)
+        fetchData();
+    }, []);
+
+    const fetchData = () => {
+        fetch("http://localhost:8080/announcement/"+id)
             .then(response => response.json())
             .then(result => {
                 setAnnouncement(result);
             })
-    }, [announcement, setAnnouncement]);
+            .catch((error) => {
+                console.log(error);
+            }
+        );
+    }
   
     return(
         <div className="container">
@@ -51,7 +59,7 @@ function HouseDetails() {
             </div>
             <div className="row HouseDetailsRows">
                 <div className="house container">
-                    {/* <div className="row">
+                    <div className="row">
                         <div className="col-sm-9">
                             <h3 className="house-description">{announcement.house.description}</h3>
                         </div>
@@ -68,7 +76,7 @@ function HouseDetails() {
                             <li className="house-address">{announcement.house.address.number} {announcement.house.address.street}</li>
                             <li className="house-city">{announcement.house.address.zipCode} {announcement.house.address.city} {announcement.house.address.country}</li>
                         </ol>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div>
