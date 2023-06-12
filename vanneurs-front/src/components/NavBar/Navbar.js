@@ -30,21 +30,7 @@ function NavBar() {
           <div className="collapse navbar-collapse" id="navbarsExample05">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <NavLink
-                  to={"/"}
-                  activeClassName="active"
-                  className="nav-link"
-                  aria-current="page"
-                >
-                  Page d'accueil
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to={"/announcements"}
-                  activeClassName="active"
-                  className="nav-link"
-                >
+                <NavLink to={"/"} activeClassName="active" className="nav-link">
                   Annonces
                 </NavLink>
               </li>
@@ -119,16 +105,6 @@ function NavBar() {
         )) || (
           <div className="collapse navbar-collapse" id="navbarsExample05">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink
-                  to={"/"}
-                  activeClassName="active"
-                  className="nav-link"
-                  aria-current="page"
-                >
-                  Page d'accueil
-                </NavLink>
-              </li>
               <li className="nav-item">
                 <NavLink
                   to={"/login"}

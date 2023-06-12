@@ -2,7 +2,6 @@ import { AuthProvider, RequireAuth } from "react-auth-kit";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "../../components/NavBar/Navbar";
 import CreateAnnouncement from "../../pages/CreateAnnouncement";
-import Home from "../../pages/Home";
 import Login from "../../pages/Login";
 import Logout from "../../pages/Logout";
 import House from "../../pages/House";
@@ -24,7 +23,6 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/" element={<Home />} />
             <Route
               path="/profil"
               element={
@@ -42,7 +40,7 @@ function App() {
               }
             />
             <Route
-              path="/announcements"
+              path="/"
               element={
                 <RequireAuth loginPath="/login">
                   <Announcements />
