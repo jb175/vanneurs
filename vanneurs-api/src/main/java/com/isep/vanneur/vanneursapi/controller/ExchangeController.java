@@ -32,6 +32,11 @@ public class ExchangeController {
         return exchangeService.getExchange(id);
     }
 
+    @GetMapping("/house/{id}")
+    public List<Exchange> getExchangesByHouseId(@PathVariable Long id) {
+        return exchangeService.getExchangesByHouseId(id, id);
+    }
+
     @PostMapping
     public Exchange createExchange(@RequestBody ExchangeCreationDTO exchangeCreationDTO) {
         return exchangeService.createExchange(exchangeCreationDTO);

@@ -2,8 +2,10 @@ package com.isep.vanneur.vanneursapi.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +40,23 @@ public class AnnouncementService {
 
     public Announcement getAnnouncement(Long id) {
         return announcementRepository.findById(id).orElseThrow();
+    }
+
+    public Announcement getAnnouncementByHouse(Long id) {
+        return announcementRepository.findByHouseId(id);
+    }
+
+    public Announcement getAnnouncementInProgress(Long id) {
+        Date currentDate = new Date();
+        Announcement announcement = announcementRepository
+                .findByHouseIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(id, currentDate,
+                        currentDate);
+
+        if (announcement == null) {
+            // Return a placeholder or an empty object instead of null
+            announcement = new Announcement();
+        }
+        return announcement;
     }
 
     public Announcement createAnnouncement(AnnouncementCreationDTO announcementCreationDTO) {

@@ -10,8 +10,6 @@ public class ExchangeCreationDTO {
 
     private Date endDate;
 
-    private int rating;
-
     private Long house1;
 
     private Long house2;

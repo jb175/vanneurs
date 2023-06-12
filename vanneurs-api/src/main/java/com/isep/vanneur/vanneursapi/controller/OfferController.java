@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.isep.vanneur.vanneursapi.dto.Offer.OfferCreationDTO;
+import com.isep.vanneur.vanneursapi.enumList.State;
 import com.isep.vanneur.vanneursapi.model.Offer;
 import com.isep.vanneur.vanneursapi.service.OfferService;
 
@@ -32,6 +33,12 @@ public class OfferController {
         return offerService.getOffer(id);
     }
 
+    @GetMapping("/person-to/{id}")
+    public List<Offer> getOffersByPersonTo(@PathVariable Long id) {
+        System.out.println(State.CANCEL);
+        return offerService.getOffersByPersonTo(id);
+    }
+
     @PostMapping
     public Offer createOffer(@RequestBody OfferCreationDTO offerCreationDTO) {
         return offerService.createOffer(offerCreationDTO);
@@ -41,6 +48,11 @@ public class OfferController {
     public Offer updateOffer(@PathVariable Long id,
             @RequestBody OfferCreationDTO offerCreationDTO) {
         return offerService.updateOffer(id, offerCreationDTO);
+    }
+
+    @PutMapping("/cancel/{id}")
+    public Offer cancelOffer(@PathVariable Long id) {
+        return offerService.cancelOffer(id);
     }
 
     @DeleteMapping("/{id}")

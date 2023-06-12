@@ -2,6 +2,7 @@ package com.isep.vanneur.vanneursapi.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.isep.vanneur.vanneursapi.enumList.State;
 
 import jakarta.persistence.Column;
@@ -35,6 +36,7 @@ public class Announcement {
     @JoinColumn()
     private House house;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "announcement")
     private Offer offer;
 }

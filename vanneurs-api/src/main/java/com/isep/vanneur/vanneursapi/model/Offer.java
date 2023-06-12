@@ -24,7 +24,11 @@ public class Offer {
 
     @OneToOne()
     @JoinColumn()
-    private Person person;
+    private Person personFrom;
+
+    @OneToOne()
+    @JoinColumn()
+    private Person personTo;
 
     @OneToOne()
     @JoinColumn()
