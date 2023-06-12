@@ -38,7 +38,7 @@ function HouseDetails() {
 
     useEffect(() => {
         fetchData();
-    }, [setHouse]);
+    }, []);
 
     const fetchData = () => {
         fetch(apiAddress+"/announcement/"+id)
