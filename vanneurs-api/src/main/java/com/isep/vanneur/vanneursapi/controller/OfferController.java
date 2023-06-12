@@ -55,6 +55,11 @@ public class OfferController {
         return offerService.cancelOffer(id);
     }
 
+    @PutMapping("/rented/{id}")
+    public Offer rentedOffer(@PathVariable Long id) {
+        return offerService.rentedOffer(id);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteOffer(@PathVariable Long id) {
         offerService.deleteOffer(id);

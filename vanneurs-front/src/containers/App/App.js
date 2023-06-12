@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "../../components/NavBar/Navbar";
 import CreateAnnouncement from "../../pages/CreateAnnouncement";
 import Login from "../../pages/Login";
-import Logout from "../../pages/Logout";
 import House from "../../pages/House";
 import { NotFound } from "../../pages/NotFound";
 import Profil from "../../pages/Profil";
@@ -76,14 +75,6 @@ function App() {
               element={
                 <RequireAuth loginPath="/login">
                   <CreateAnnouncement />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="/logout"
-              element={
-                <RequireAuth loginPath="/login">
-                  <Logout />
                 </RequireAuth>
               }
             />

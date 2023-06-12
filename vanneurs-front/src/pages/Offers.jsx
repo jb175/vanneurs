@@ -3,11 +3,13 @@ import { useAuthUser } from "react-auth-kit";
 import House from "../components/House/House";
 
 import { apiAddress } from "../const";
+import { useNavigate } from "react-router-dom";
 
 
 function Offers() {
     const auth = useAuthUser();
     const [offers, setOffers] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`${apiAddress}/offer/person-to/${auth().person.id}`, {
@@ -51,8 +53,18 @@ function Offers() {
                 house2: offer.personFrom.house.id
             })
         }).then((response) => response.json())
-        .then((responseExchange) => console.log(responseExchange))
-    }
+        .then((responseExchange) => {
+            navigate('/exchanges')
+                fetch(`${apiAddress}/offer/rented/${offer.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((response) => response.json())
+            .then((responseRentedOffer) => console.log(responseRentedOffer))
+        }
+    )}
 
     const handleCancelExchange = (offer) => {
         console.log(offer)

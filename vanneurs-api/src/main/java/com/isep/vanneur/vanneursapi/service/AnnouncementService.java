@@ -49,8 +49,7 @@ public class AnnouncementService {
     public Announcement getAnnouncementInProgress(Long id) {
         Date currentDate = new Date();
         Announcement announcement = announcementRepository
-                .findByHouseIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(id, currentDate,
-                        currentDate);
+                .findByHouseIdAndEndDateGreaterThanEqual(id, currentDate);
 
         if (announcement == null) {
             // Return a placeholder or an empty object instead of null

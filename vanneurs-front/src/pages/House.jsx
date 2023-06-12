@@ -100,6 +100,7 @@ function House() {
                         }).then((response) => response.json())
                         .then((responseRestrictionList) => {
                             console.log(responseRestrictionList)
+                            window.location.reload();
                         })
                     })
                 })
@@ -175,6 +176,7 @@ function House() {
         }).then((response) => response.json())
         .then((responseAnnouncement) => {
             console.log(responseAnnouncement)
+            window.location.reload();
         })
     })
 

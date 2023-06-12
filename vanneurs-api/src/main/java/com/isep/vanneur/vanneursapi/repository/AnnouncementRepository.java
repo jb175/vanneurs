@@ -9,6 +9,5 @@ import com.isep.vanneur.vanneursapi.model.Announcement;
 public interface AnnouncementRepository extends JpaRepository<Announcement, Long> {
     Announcement findByHouseId(Long id);
 
-    Announcement findByHouseIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(Long id, Date startDate,
-            Date endDate);
+    Announcement findByHouseIdAndEndDateGreaterThanEqual(Long id, Date endDate);
 }

@@ -89,15 +89,6 @@ function NavBar() {
                       Paramètres
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink
-                      to={"/logout"}
-                      activeClassName="active"
-                      className="dropdown-item"
-                    >
-                      Déconnexion
-                    </NavLink>
-                  </li>
                 </ul>
               </li>
             </ul>

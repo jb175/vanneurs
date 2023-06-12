@@ -8,5 +8,5 @@ import com.isep.vanneur.vanneursapi.enumList.State;
 import com.isep.vanneur.vanneursapi.model.Offer;
 
 public interface OfferRepository extends JpaRepository<Offer, Long> {
-    List<Offer> findByPersonToIdAndStateNot(Long id, State state);
+    List<Offer> findByPersonToIdAndState(Long id, State state);
 }

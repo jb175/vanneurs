@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import './HouseDetails.css';
 import { apiAddress } from "../../const";
@@ -8,6 +8,7 @@ import { useAuthUser } from "react-auth-kit";
 function HouseDetails() {
     const auth = useAuthUser();
     const { id } = useParams();
+    const navigate = useNavigate();
     const [announcement, setAnnouncement] = useState({
         startDate: '',
         endDate: '',
@@ -53,7 +54,7 @@ function HouseDetails() {
     }
       
     const handleOffer = (e) => {
-        fetch(`${apiAddress}/announcement/house/${id}`, {
+        fetch(`${apiAddress}/announcement/house/${announcement.house.id}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -73,7 +74,7 @@ function HouseDetails() {
                     personTo: responseAnnouncement.person.id,
                     announcement: responseAnnouncement.id
                 })
-            })
+            }).then(() => navigate("/"))
         })
     }
   
