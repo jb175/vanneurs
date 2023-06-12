@@ -52,30 +52,45 @@ function Offers() {
         .then((responseExchange) => console.log(responseExchange))
     }
 
+    const handleCancelExchange = (offer) => {
+        console.log(offer)
+        fetch(`http://localhost:8080/offer/cancel/${offer.id}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => response.json())
+        .then((responseCancelOffer) => console.log(responseCancelOffer))
+    }
+
     return (
         <div>
             <h2 className="text-center">Mes demandes d'offres en cours</h2>
             {offers.map((offer) => (
-            <div className="house container">
+            <div key={offer.id} className="house container">
                 <div className="row">
                     <div className="col-sm-9">
-                        <h3 className="house-description">{offer.personTo.house.description}</h3>
+                        <h3 className="house-description">{offer.personFrom.house.description}</h3>
                     </div>
                     <div className="col-sm-3">
-                        {getNotation(offer.personTo.house.avgRating)}
+                        {getNotation(offer.personFrom.house.avgRating)}
                     </div>
                 </div>  
                 <div className="row">
                     <div className="col-sm-8">
-                        <img className="house-image" src={offer.personTo.house.photoPath} role="presentation" alt="" typeof=""/>
+                        <img className="house-image" src={offer.personFrom.house.photoPath} role="presentation" alt="" typeof=""/>
                 </div>
                     <ol className="list-unstyled col-sm-4">
-                        <li className="house-description">{offer.personTo.house.description}</li>
-                        <li className="house-address">{offer.personTo.house.address.number} {offer.personTo.house.address.street}</li>
-                        <li className="house-city">{offer.personTo.house.address.zip_code} {offer.personTo.house.address.city} {offer.personTo.house.address.country}</li>
+                        <li className="house-description">{offer.personFrom.house.description}</li>
+                        <li className="house-address">{offer.personFrom.house.address.number} {offer.personFrom.house.address.street}</li>
+                        <li className="house-city">{offer.personFrom.house.address.zip_code} {offer.personFrom.house.address.city} {offer.personFrom.house.address.country}</li>
                     </ol>
                 </div>
-                <button type="button" onClick={() => handleExchange(offer)} className="btn btn-primary">J'échange avec cette maison</button>
+                <div className="d-flex justify-content-center">
+                    <button type="button" onClick={() => handleExchange(offer)} className="btn btn-primary mr-5">J'échange avec cette maison</button>
+                    <button type="button" onClick={() => handleCancelExchange(offer)} className="btn btn-danger">Je ne souhaite pas échanger avec cette maison</button>
+                </div>
             </div>
             )
             )}

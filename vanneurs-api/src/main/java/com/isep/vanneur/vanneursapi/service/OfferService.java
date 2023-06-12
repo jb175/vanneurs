@@ -32,7 +32,8 @@ public class OfferService {
     }
 
     public List<Offer> getOffersByPersonTo(Long id) {
-        return offerRepository.findByPersonToId(id);
+        System.out.println(State.CANCEL);
+        return offerRepository.findByPersonToIdAndStateNot(id, State.CANCEL);
     }
 
     public Offer createOffer(OfferCreationDTO offerCreationDTO) {
@@ -47,6 +48,12 @@ public class OfferService {
     public Offer updateOffer(Long id, OfferCreationDTO offerCreationDTO) {
         Offer currentOffer = getOffer(id);
         mapper.map(offerCreationDTO, currentOffer);
+        return offerRepository.save(currentOffer);
+    }
+
+    public Offer cancelOffer(Long id) {
+        Offer currentOffer = getOffer(id);
+        currentOffer.setState(State.CANCEL);
         return offerRepository.save(currentOffer);
     }
 
