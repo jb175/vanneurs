@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useSignIn } from "react-auth-kit";
 import { Link, useNavigate } from "react-router-dom";
 
+import { apiAddress } from "../const";
+
 function Login() {
   const navigate = useNavigate();
   const [formLogin, setFormLogin] = useState({
@@ -20,7 +22,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch('http://localhost:8080/auth/login', {
+    fetch(apiAddress+'/auth/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

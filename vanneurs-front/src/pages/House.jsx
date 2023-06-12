@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuthUser } from "react-auth-kit";
+import { apiAddress } from "../const";
 
 function House() {
     const auth = useAuthUser();
@@ -27,7 +28,7 @@ function House() {
     // const [restrictionAdded, setRestrictionAdded] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:8080/person/' + auth().person.id, {
+        fetch(apiAddress+'/person/' + auth().person.id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -36,7 +37,7 @@ function House() {
         }).then((response) => response.json())
         .then((responseHouse) => {
             if(responseHouse.house != null) {
-                fetch(`http://localhost:8080/restriction/house/${responseHouse.house.id}`, {
+                fetch(`${apiAddress}/restriction/house/${responseHouse.house.id}`, {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
@@ -50,7 +51,7 @@ function House() {
             }
         })
         if (newHouse.address) {
-            fetch('http://localhost:8080/house', {
+            fetch(apiAddress+'/house', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -61,7 +62,7 @@ function House() {
                 .then((response) => response.json())
                 .then((responseHouse) => {
                     console.log(responseHouse);
-                    fetch('http://localhost:8080/person/' + auth().person.id, {
+                    fetch(apiAddress+'/person/' + auth().person.id, {
                         method: 'PUT',
                         headers: {
                             'Accept': 'application/json',
@@ -73,7 +74,7 @@ function House() {
                         console.log(responsePerson);
                         restrictionFill.house = responseHouse.id
                         console.log(restrictionFill)
-                        fetch('http://localhost:8080/restriction', {
+                        fetch(apiAddress+'/restriction', {
                             method: 'POST',
                             headers: {
                                 'Accept': 'application/json',
@@ -87,7 +88,7 @@ function House() {
                     })
                 })
         }
-        fetch('http://localhost:8080/restriction-list', {
+        fetch(apiAddress+'/restriction-list', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -126,7 +127,7 @@ function House() {
 
     const handleSubmitNewHouse = ((e) => {
         e.preventDefault();
-        fetch('http://localhost:8080/address', {
+        fetch(apiAddress+'/address', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -149,7 +150,7 @@ function House() {
         announcement.house = house.id;
         announcement.person = auth().person.id;
         console.log(announcement)
-        fetch('http://localhost:8080/announcement', {
+        fetch(apiAddress+'/announcement', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

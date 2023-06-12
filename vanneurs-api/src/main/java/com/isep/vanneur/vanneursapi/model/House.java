@@ -33,9 +33,11 @@ public class House {
     private Address address;
 
     @OneToMany(mappedBy = "house1")
+    @JsonIgnore
     private Collection<Exchange> exchanges1;
 
     @OneToMany(mappedBy = "house2")
+    @JsonIgnore
     private Collection<Exchange> exchanges2;
 
     @JsonIgnore

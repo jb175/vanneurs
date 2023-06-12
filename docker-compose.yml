@@ -4,24 +4,24 @@ services:
     image: mysql:8
     # restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: vanneurs1234!root
-      MYSQL_DATABASE: vanneurs_database
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_TABLE_NAME}
     volumes:
       - ./vanneurs-db:/var/lib/mysql
     ports:
-      - "3307:3306"
+      - "${MYSQL_EXTERNAL_PORT}:${MYSQL_PORT}"
   api:
     build: ./vanneurs-api
     ports:
-      - "8080:8080"
+      - "${API_EXTERNAL_PORT}:${API_PORT}"
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/vanneurs_database?createDatabaseIfNotExist=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: vanneurs1234!root
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:${MYSQL_PORT}/${MYSQL_TABLE_NAME}?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
   react:
     build: ./vanneurs-front
     ports:
-      - "3000:3000"
+      - "${REACT_EXTERNAL_PORT}:${REACT_PORT}"

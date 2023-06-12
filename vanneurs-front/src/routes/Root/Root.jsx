@@ -1,7 +1,8 @@
 import { Outlet, Link } from "react-router-dom";
+import { apiAddress } from "../../const";
 
 export async function loader() {
-  const contacts = await fetch("http://localhost:8080/house")
+  const contacts = await fetch(apiAddress+"/house")
   return { contacts };
 }
 
