@@ -28,6 +28,10 @@ public class ExchangeService {
         return exchangeRepository.findById(id).orElseThrow();
     }
 
+    public List<Exchange> getExchangesByHouseId(Long house1Id, Long house2Id) {
+        return exchangeRepository.findByHouse1IdOrHouse2Id(house1Id, house2Id);
+    }
+
     public Exchange createExchange(ExchangeCreationDTO exchangeCreationDTO) {
         Exchange exchange = mapper.map(exchangeCreationDTO, Exchange.class);
         exchange.setHouse1(houseService.getHouse(exchangeCreationDTO.getHouse1()));

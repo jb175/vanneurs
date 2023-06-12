@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import './HouseDetails.css';
+import { useAuthUser } from "react-auth-kit";
 
 function HouseDetails() {
-
+    const auth = useAuthUser();
     const { id } = useParams();
     const [announcement, setAnnouncement] = useState({
         startDate: '',
@@ -36,7 +37,7 @@ function HouseDetails() {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [setHouse]);
 
     const fetchData = () => {
         fetch("http://localhost:8080/announcement/"+id)
@@ -48,13 +49,37 @@ function HouseDetails() {
                 console.log(error);
             }
         );
+      
+    const handleOffer = (e) => {
+        fetch(`http://localhost:8080/announcement/house/${id}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        }).then((response) => response.json())
+        .then((responseAnnouncement) => {
+            console.log(responseAnnouncement)
+            fetch('http://localhost:8080/offer', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    personFrom: auth().person.id,
+                    personTo: responseAnnouncement.person.id,
+                    announcement: responseAnnouncement.id
+                })
+            })
+        })
     }
   
     return(
         <div className="container">
             <div className="row HouseDetailsRows">
                 <div className="col-md-3">
-                    <Link to={"/announcements"} className="btn btn-primary">back</Link>
+                    <Link to={"/"} className="btn btn-primary">back</Link>
                 </div>
             </div>
             <div className="row HouseDetailsRows">
@@ -78,6 +103,9 @@ function HouseDetails() {
                         </ol>
                     </div>
                 </div>
+            </div>
+            <div className="d-flex justify-content-center">
+                <button type="button" onClick={handleOffer} className="btn btn-primary">Je suis intéressé par cette maison</button>
             </div>
         </div>
     )

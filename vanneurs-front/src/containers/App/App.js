@@ -2,7 +2,6 @@ import { AuthProvider, RequireAuth } from "react-auth-kit";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "../../components/NavBar/Navbar";
 import CreateAnnouncement from "../../pages/CreateAnnouncement";
-import Home from "../../pages/Home";
 import Login from "../../pages/Login";
 import Logout from "../../pages/Logout";
 import House from "../../pages/House";
@@ -12,6 +11,8 @@ import Register from "../../pages/Register";
 import Announcements from "../Announcements/Announcements";
 import HouseDetails from "../../components/HouseDetails/HouseDetails";
 import "./App.css";
+import Offers from "../../pages/Offers";
+import Exchanges from "../../pages/Exchanges";
 
 function App() {
   return (
@@ -22,7 +23,6 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/" element={<Home />} />
             <Route
               path="/profil"
               element={
@@ -40,7 +40,7 @@ function App() {
               }
             />
             <Route
-              path="/announcements"
+              path="/"
               element={
                 <RequireAuth loginPath="/login">
                   <Announcements />
@@ -51,7 +51,23 @@ function App() {
               path="/announcements/:id"
               element={
                 <RequireAuth loginPath="/login">
-                  <HouseDetails/>
+                  <HouseDetails />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/offers/"
+              element={
+                <RequireAuth loginPath="/login">
+                  <Offers />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/exchanges/"
+              element={
+                <RequireAuth loginPath="/login">
+                  <Exchanges />
                 </RequireAuth>
               }
             />

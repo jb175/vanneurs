@@ -4,6 +4,7 @@ import { useAuthUser } from "react-auth-kit";
 function House() {
     const auth = useAuthUser();
     const [haveHouse, setHaveHouse] = useState(false);
+    const [haveAnnouncement, setHaveAnnouncement] = useState(false);
     const [house, setHouse] = useState({})
     const [newHouse, setNewHouse] = useState({
         photoPath: '',
@@ -16,15 +17,16 @@ function House() {
         city: '',
         country : '',
     });
-    const [announcement, setAnnouncement] = useState({
+    const [newAnnouncement, setNewAnnouncement] = useState({
         startDate: '',
         endDate: ''
     })
+    const [announcementInProgress, setAnnouncementInProgress] = useState({})
     const [restrictionList, setRestrictionList] = useState([])
     const [restrictionFill, setRestrictionFill] = useState({
         description: ''
     })
-    // const [restrictionAdded, setRestrictionAdded] = useState([])
+
 
     useEffect(() => {
         fetch('http://localhost:8080/person/' + auth().person.id, {
@@ -47,14 +49,28 @@ function House() {
                     setHaveHouse(true);
                     setHouse(responseRestriction);
                 })
+                fetch(`http://localhost:8080/announcement/in-progress/${responseHouse.house.id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }).then((response) => response.json())
+                .then((responseAnnouncement) => {
+                    if(responseAnnouncement.id != null) {
+                        setAnnouncementInProgress(responseAnnouncement);
+                        setHaveAnnouncement(true)
+                    }
+                });
             }
         })
+
         if (newHouse.address) {
             fetch('http://localhost:8080/house', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json', 
                 },
                 body: JSON.stringify(newHouse)
                 })
@@ -97,7 +113,7 @@ function House() {
         .then((responseRestrictionList) => {
             setRestrictionList(responseRestrictionList)
         })
-    }, [setHaveHouse, newHouse])
+    }, [setHaveHouse, newHouse, setHaveAnnouncement])
 
 
     const handleChangeHouse = ((e) => {
@@ -118,7 +134,7 @@ function House() {
 
     const handleChangeAnnouncement = ((e) => {
         const { name, value } = e.target;
-        setAnnouncement((prevData) => ({
+        setNewAnnouncement((prevData) => ({
           ...prevData,
           [name]: value,
         }));
@@ -144,18 +160,18 @@ function House() {
         })
     })
 
-    const handleSubmitAnnouncement = ((e) => {
+    const handleSubmitNewAnnouncement = ((e) => {
         e.preventDefault();
-        announcement.house = house.id;
-        announcement.person = auth().person.id;
-        console.log(announcement)
+        newAnnouncement.house = house.id;
+        newAnnouncement.person = auth().person.id;
+        console.log(newAnnouncement)
         fetch('http://localhost:8080/announcement', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
               },
-            body: JSON.stringify(announcement)
+            body: JSON.stringify(newAnnouncement)
         }).then((response) => response.json())
         .then((responseAnnouncement) => {
             console.log(responseAnnouncement)
@@ -294,17 +310,19 @@ function House() {
                         </div>
                     </div>
                 </div>
-                <form onSubmit={handleSubmitAnnouncement}>
+                {console.log(haveAnnouncement)}
+                {(!haveAnnouncement) && (
+                <form onSubmit={handleSubmitNewAnnouncement}>
                     <h2 className="text-center">Créer votre annonce</h2>
                     <h3>Choississez vos dates</h3>
                     <div className="mb-3">
                         <label htmlFor="startDate" className="form-label mr-3">
                             Date de début
-                            <input type="date" id="startDate" name="startDate" className="form-control" value={announcement.startDate} onChange={handleChangeAnnouncement}/>
+                            <input type="date" id="startDate" name="startDate" className="form-control" value={newAnnouncement.startDate} onChange={handleChangeAnnouncement}/>
                         </label>
                         <label htmlFor="endDate" className="form-label mr-3">
                             Date de fin
-                            <input type="date" id="endDate" name="endDate" className="form-control" value={announcement.endDate} onChange={handleChangeAnnouncement}/>
+                            <input type="date" id="endDate" name="endDate" className="form-control" value={newAnnouncement.endDate} onChange={handleChangeAnnouncement}/>
                         </label>
                     </div>
                     <div className="d-flex justify-content-center">
@@ -313,6 +331,9 @@ function House() {
                         </button>
                     </div>
                 </form>
+                ) || (
+                    <h5 className="text-center">Vous avez déjà une annonce en cours du {new Date(announcementInProgress.startDate).toLocaleDateString("fr-FR")} au {new Date(announcementInProgress.endDate).toLocaleDateString("fr-FR")}</h5>
+                )}
         </div>
         )}
     </div>
