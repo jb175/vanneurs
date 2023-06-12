@@ -46,7 +46,7 @@ function HouseDetails() {
                 },
                 body: JSON.stringify({
                     personFrom: auth().person.id,
-                    personTo: responseAnnouncement.person,
+                    personTo: responseAnnouncement.person.id,
                     announcement: responseAnnouncement.id
                 })
             })
@@ -57,7 +57,7 @@ function HouseDetails() {
         <div className="container">
             <div className="row HouseDetailsRows">
                 <div className="col-md-3">
-                    <Link to={"/announcements"} className="btn btn-primary">back</Link>
+                    <Link to={"/"} className="btn btn-primary">back</Link>
                 </div>
             </div>
             <div className="row HouseDetailsRows">

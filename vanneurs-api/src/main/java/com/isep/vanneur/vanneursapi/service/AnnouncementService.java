@@ -1,5 +1,10 @@
 package com.isep.vanneur.vanneursapi.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -33,6 +38,19 @@ public class AnnouncementService {
 
     public Announcement getAnnouncementByHouse(Long id) {
         return announcementRepository.findByHouseId(id);
+    }
+
+    public Announcement getAnnouncementInProgress(Long id) {
+        Date currentDate = new Date();
+        Announcement announcement = announcementRepository
+                .findByHouseIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(id, currentDate,
+                        currentDate);
+
+        if (announcement == null) {
+            // Return a placeholder or an empty object instead of null
+            announcement = new Announcement();
+        }
+        return announcement;
     }
 
     public Announcement createAnnouncement(AnnouncementCreationDTO announcementCreationDTO) {
