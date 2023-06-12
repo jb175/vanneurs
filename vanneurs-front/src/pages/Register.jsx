@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { apiAddress } from '../const';
+
 function Register() {
     const [formRegister, setFormRegister] = useState({
         firstName: '',
@@ -20,7 +22,7 @@ function Register() {
       const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formRegister);
-        fetch('http://localhost:8080/auth/register', {
+        fetch(apiAddress+'/auth/register', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import './HouseDetails.css';
+import { apiAddress } from "../../const";
 import { useAuthUser } from "react-auth-kit";
 
 function HouseDetails() {
@@ -40,7 +41,7 @@ function HouseDetails() {
     }, [setHouse]);
 
     const fetchData = () => {
-        fetch("http://localhost:8080/announcement/"+id)
+        fetch(apiAddress+"/announcement/"+id)
             .then(response => response.json())
             .then(result => {
                 setAnnouncement(result);

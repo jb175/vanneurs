@@ -2,6 +2,8 @@ import React, { Component }  from "react";
 
 import House from "../../components/House/House";
 
+import { apiAddress } from "../../const";
+
 class HouseList extends Component {
 
     constructor(props) {
@@ -19,7 +21,7 @@ class HouseList extends Component {
         const toParam = to || '';
         const orderByParam = orderBy || 'Default';
         this.setState({...this.state, isFetching: true});
-        fetch("http://localhost:8080/announcement/search?country="+countryParam+"&city="+cityParam+"&from="+fromParam+"&to="+toParam+"&orderBy="+orderByParam)
+        fetch(apiAddress+"/announcement/search?country="+countryParam+"&city="+cityParam+"&from="+fromParam+"&to="+toParam+"&orderBy="+orderByParam)
             .then(response => response.json())
             .then(result => {
                 this.setState({announcements: result, isFetching: false});
