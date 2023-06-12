@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useAuthUser } from "react-auth-kit";
 import House from "../components/House/House";
 
+import { apiAddress } from "../const";
+
 
 function Offers() {
     const auth = useAuthUser();
     const [offers, setOffers] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/offer/person-to/${auth().person.id}`, {
+        fetch(`${apiAddress}/offer/person-to/${auth().person.id}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -36,7 +38,7 @@ function Offers() {
 
     const handleExchange = (offer) => {
         console.log(offer)
-        fetch('http://localhost:8080/exchange', {
+        fetch(apiAddress+'/exchange', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -54,7 +56,7 @@ function Offers() {
 
     const handleCancelExchange = (offer) => {
         console.log(offer)
-        fetch(`http://localhost:8080/offer/cancel/${offer.id}`, {
+        fetch(`${apiAddress}/offer/cancel/${offer.id}`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',

@@ -50,7 +50,7 @@ function House() {
                     setHaveHouse(true);
                     setHouse(responseRestriction);
                 })
-                fetch(`http://localhost:8080/announcement/in-progress/${responseHouse.house.id}`, {
+                fetch(`${apiAddress}/announcement/in-progress/${responseHouse.house.id}`, {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',

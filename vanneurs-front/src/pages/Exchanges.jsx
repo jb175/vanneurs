@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useAuthUser } from "react-auth-kit";
 
+import { apiAddress } from "../const";
+
 function Exchanges() {
     const auth = useAuthUser();
     const [exchanges, setExchanges] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:8080/exchange/house/${auth().person.id}`, {
+        fetch(`${apiAddress}/exchange/house/${auth().person.id}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

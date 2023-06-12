@@ -53,7 +53,7 @@ function HouseDetails() {
     }
       
     const handleOffer = (e) => {
-        fetch(`http://localhost:8080/announcement/house/${id}`, {
+        fetch(`${apiAddress}/announcement/house/${id}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -62,7 +62,7 @@ function HouseDetails() {
         }).then((response) => response.json())
         .then((responseAnnouncement) => {
             console.log(responseAnnouncement)
-            fetch('http://localhost:8080/offer', {
+            fetch(apiAddress+'/offer', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -102,6 +102,8 @@ function HouseDetails() {
                             <li className="house-description">{announcement.house.description}</li>
                             <li className="house-address">{announcement.house.address.number} {announcement.house.address.street}</li>
                             <li className="house-city">{announcement.house.address.zipCode} {announcement.house.address.city} {announcement.house.address.country}</li>
+                            <li className="house-dates">du {announcement.startDate} au {announcement.endDate}</li>
+                            <li className="house-status">{announcement.state}</li>
                         </ol>
                     </div>
                 </div>
