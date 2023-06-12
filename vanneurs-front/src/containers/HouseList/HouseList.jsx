@@ -8,38 +8,67 @@ class HouseList extends Component {
         super(props);
         this.state = {
             isFetching: false,
-            houses: []
+            announcements: []
         }
-        this.fetchHouses();
     }
 
+    fetchData = (country, city, from, to, orderBy) => {
+        const countryParam = country || '';
+        const cityParam = city || '';
+        const fromParam = from || '';
+        const toParam = to || '';
+        const orderByParam = orderBy || 'Default';
+        this.setState({...this.state, isFetching: true});
+        fetch("http://localhost:8080/announcement/search?country="+countryParam+"&city="+cityParam+"&from="+fromParam+"&to="+toParam+"&orderBy="+orderByParam)
+            .then(response => response.json())
+            .then(result => {
+                this.setState({announcements: result, isFetching: false});
+            })
+            .catch(e => {
+                this.setState({...this.state, isFetching: false});
+            });
+      }
+
+    componentDidMount() {
+        const {country, city, orderBy} = this.props;
+        this.fetchData(country, city, orderBy);
+    }
+
+    componentDidUpdate(prevProps) {
+        const {country, city, from, to, orderBy} = this.props;
+
+        if (country !== prevProps.country) {
+          this.fetchData(country, city, from, to, orderBy);
+        }
+        if (city !== prevProps.city) {
+          this.fetchData(country, city, from, to, orderBy);
+        }
+        if (from !== prevProps.from) {
+            this.fetchData(country, city, from, to, orderBy);
+        }
+        if (to !== prevProps.to) {
+            this.fetchData(country, city, from, to, orderBy);
+        }
+        if (orderBy !== prevProps.orderBy) {
+          this.fetchData(country, city, from, to, orderBy);
+        }
+      }
+
     render() {
-        const { houses } = this.state
+        const { announcements } = this.state
         return (
             <div>
                 <h1>House List</h1>
-                {houses.map((house, index) => (
+                {announcements.map((announce, index) => (
                     <House 
                         key={index}
-                        {...house}
+                        {...announce}
                     />
                 ))}
             </div>
         )
     }
 
-    fetchHouses() {
-        this.setState({...this.state, isFetching: true});
-        fetch("http://localhost:8080/house")
-            .then(response => response.json())
-            .then(result => {
-                this.setState({houses: result, isFetching: false});
-                //this.state = {houses: result, isFetching: false};
-            })
-            .catch(e => {
-                this.setState({...this.state, isFetching: false});
-            });
-    }
 }
 
 export default HouseList;

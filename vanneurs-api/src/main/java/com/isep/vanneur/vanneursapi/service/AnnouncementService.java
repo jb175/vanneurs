@@ -3,9 +3,13 @@ package com.isep.vanneur.vanneursapi.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -20,13 +24,15 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AnnouncementService {
-    final private ModelMapper mapper;
+    private final ModelMapper mapper;
 
-    final private PersonService personService;
+    private final PersonService personService;
 
-    final private HouseService houseService;
+    private final HouseService houseService;
 
-    final private AnnouncementRepository announcementRepository;
+    private final AnnouncementRepository announcementRepository;
+
+    private final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public List<Announcement> getAnnouncements() {
         return announcementRepository.findAll();
@@ -69,5 +75,75 @@ public class AnnouncementService {
 
     public void deleteAnnouncement(Long id) {
         announcementRepository.deleteById(id);
+    }
+
+    public List<Announcement> getAnnouncementFiltered(String country, String city, String from, String to,
+            String orderBy) {
+        Comparator<Announcement> c;
+        switch (orderBy) {
+            case "Notation":
+                c = (announcement0, announcement1) -> (announcement0.getHouse().getAvgRating() > announcement1
+                        .getHouse().getAvgRating() ? 1 : -1);
+                break;
+            case "Date":
+                c = new Comparator<Announcement>() {
+                    @Override
+                    public int compare(Announcement announcement0, Announcement announcement1) {
+                        if (announcement0.getStartDate() != null && announcement1.getStartDate() != null) {
+                            return announcement0.getStartDate().compareTo(announcement1.getStartDate());
+                        } else if (announcement0.getStartDate() != null) {
+                            return -1;
+                        } else if (announcement1.getStartDate() != null) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    };
+                };
+                break;
+            default:
+                c = (announcement0, announcement1) -> (announcement0.getHouse().getAddress().getId() > announcement1
+                        .getHouse().getAddress().getId() ? 1 : -1);
+                break;
+        }
+
+        return getAnnouncements().stream()
+                .filter(announcement -> announcement.getState() == State.AVAILABLE)
+                .filter(announcement -> countryFilter(announcement, country))
+                .filter(announcement -> cityFilter(announcement, city))
+                .filter(announcement -> fromFilter(announcement, from))
+                .filter(announcement -> toFilter(announcement, to))
+                .sorted(c)
+                .toList();
+    }
+
+    private boolean countryFilter(Announcement announcement, String country) {
+        return country.equals("") || announcement.getHouse().getAddress().getCountry()
+                .toLowerCase().startsWith(country.toLowerCase());
+    }
+
+    private boolean cityFilter(Announcement announcement, String city) {
+        return city.equals("") || announcement.getHouse().getAddress().getCity()
+                .toLowerCase().startsWith(city.toLowerCase());
+    }
+
+    private boolean fromFilter(Announcement announcement, String from) {
+        try {
+            return from.equals("") || announcement.getStartDate() == null
+                    || announcement.getStartDate().compareTo(formatter.parse(from)) > 0;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return true;
+        }
+    }
+
+    private boolean toFilter(Announcement announcement, String to) {
+        try {
+            return to.equals("") || (announcement.getEndDate() == null && formatter.parse(to).compareTo(Date.from(Instant.now())) > 0)
+                    || announcement.getEndDate().compareTo(formatter.parse(to)) < 0;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return true;
+        }
     }
 }

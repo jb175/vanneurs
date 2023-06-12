@@ -1,6 +1,7 @@
 package com.isep.vanneur.vanneursapi.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
@@ -16,14 +17,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HouseService {
     @Lazy
-    final private AddressService addressService;
+    private final AddressService addressService;
 
-    final private ModelMapper mapper;
+    private final ModelMapper mapper;
 
-    final private HouseRepository houseRepository;
+    private final HouseRepository houseRepository;
 
     public List<House> getHouses() {
         return houseRepository.findAll();
+    }
+
+    public List<House> getHousesFiltered(String country, String city) {
+        return getHouses().stream()
+        .filter(house -> country.equals("") || Objects.equals(house.getAddress().getCountry(), country))
+        .filter(house -> city.equals("") || Objects.equals(house.getAddress().getCity(), city))
+        .sorted((house0, house1) -> (house0.getId() > house1.getId() ? 1 : -1))
+        .toList();
     }
 
     public House getHouse(Long id) {
