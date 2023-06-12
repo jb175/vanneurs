@@ -43,6 +43,7 @@ public class AnnouncementController {
     @GetMapping("/in-progress/{id}")
     public Announcement getAnnouncementInProgress(@PathVariable Long id) {
         return announcementService.getAnnouncementInProgress(id);
+    }
 
     @GetMapping("/search")
     public List<Announcement> getAnnouncementFiltered(

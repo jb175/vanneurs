@@ -50,6 +50,7 @@ function HouseDetails() {
                 console.log(error);
             }
         );
+    }
       
     const handleOffer = (e) => {
         fetch(`http://localhost:8080/announcement/house/${id}`, {
