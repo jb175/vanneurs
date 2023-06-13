@@ -35,9 +35,26 @@ function HouseDetails() {
             restrictions: []
         }
     });
+    const [restrictions, setRestrictions] = useState({
+        id: '',
+        description: '',
+        house: {
+            photoPath: '',
+            description: '',
+            avgRating: 0,
+            numberRating: 0,
+            address: {
+                city: '',
+                country: '',
+                number: 0,
+                street: '',
+                zipCode: 0
+            },
+        }
+    });
 
     useEffect(() => {
-        fetchData();
+        fetchData().then(fetchRestrictions());
     }, []);
 
     const fetchData = () => {
@@ -51,9 +68,21 @@ function HouseDetails() {
             }
         );
     }
+
+    const fetchRestrictions = () => {
+        fetch(apiAddress+"/restriction/house/"+announcement.house.id)
+            .then(response => response.json())
+            .then(result => {
+                setRestrictions(result);
+            })
+            .catch((error) => {
+                console.log(error);
+            }
+        );
+    }
       
     const handleOffer = (e) => {
-        fetch(`${apiAddress}/announcement/house/${id}`, {
+        $.fetch(`${apiAddress}/announcement/house/${id}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
